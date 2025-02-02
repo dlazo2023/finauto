@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/apps/productos/addproduct",
         name: "apps-productos-addproduct",
-        component: () => import("@/views/apps/productos/aside-products.vue"),
+        component: () => import("@/views/apps/productos/crear-piezas-garaje.vue"),
         meta: {
           pageTitle: "Añadir Producto",
           breadcrumbs: ["Apps", "Productos"],

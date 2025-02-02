@@ -42,7 +42,7 @@
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
-										<li class="breadcrumb-item text-muted">Catalog</li>
+										<li class="breadcrumb-item text-muted">Servicio</li>
 										<!--end::Item-->
 									</ul>
 									<!--end::Breadcrumb-->
@@ -113,14 +113,7 @@
 																<!--end::Description-->
 
 																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Brand</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Brand name"
-																	value="" />
-																<!--end::Input-->
+																
 
 															</div>
 															<!--end::Input group-->
@@ -197,64 +190,7 @@
 													</div>
 													<!--end::Media-->
 													<!--begin::Pricing-->
-													<div class="card card-flush py-4">
-														<!--begin::Card header-->
-														<div class="card-header">
-															<div class="card-title">
-																<h2>Pricing</h2>
-															</div>
-														</div>
-														<!--end::Card header-->
-														<!--begin::Card body-->
-														<div class="card-body pt-0">
-															<!--begin::Input group-->
-															<div class="mb-10 fv-row">
-																<!--begin::Label-->
-																<label class="required form-label">Base Price</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="price"
-																	class="form-control mb-2"
-																	placeholder="Product price" value="" />
-																<!--end::Input-->
-																<!--begin::Description-->
-																<div class="text-muted fs-7">Set the product price.
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Input group-->
-
-															<!--begin::Input group-->
-															<div class="d-none mb-10 fv-row"
-																id="kt_ecommerce_add_product_discount_percentage">
-																<!--begin::Label-->
-																<label class="form-label">Set Discount
-																	Percentage</label>
-																<!--end::Label-->
-																<!--begin::Slider-->
-																<div class="d-flex flex-column text-center mb-5">
-																	<div
-																		class="d-flex align-items-start justify-content-center mb-7">
-																		<span class="fw-bold fs-3x"
-																			id="kt_ecommerce_add_product_discount_label">0</span>
-																		<span class="fw-bold fs-4 mt-1 ms-2">%</span>
-																	</div>
-																	<div id="kt_ecommerce_add_product_discount_slider"
-																		class="noUi-sm"></div>
-																</div>
-																<!--end::Slider-->
-																<!--begin::Description-->
-																<div class="text-muted fs-7">Set a percentage discount
-																	to be applied on this product.</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-
-
-														</div>
-														<!--end::Card header-->
-													</div>
+													
 													<!--end::Pricing-->
 												</div>
 											</div>

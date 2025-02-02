@@ -155,4 +155,12 @@
     </div>
     <!--end::Aside column-->
 </template>
-<style></style>
+<style>
+.image-input-placeholder {
+  background-image: url("public/media/svg/files/blank-image.svg") !important;
+}
+
+[data-bs-theme="dark"] .image-input-placeholder {
+  background-image: url("public/media/svg/files/blank-image.svg") !important;
+}
+</style>
