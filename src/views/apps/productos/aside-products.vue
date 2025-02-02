@@ -133,15 +133,14 @@
                     class="form-label">Select a product template</label>
                 <!--end::Select store template-->
                 <!--begin::Select2-->
-                <select class="form-select mb-2" data-control="select2"
+                <select class="form-select mb-2" data-control="select2" 
                     data-hide-search="true" data-placeholder="Select an option"
-                    id="kt_ecommerce_add_product_store_template">
-                    <option></option>
-                    
-                    <option value="electronics">Cars</option>
-                    <option value="office">Parts</option>
-                    <option value="fashion">Garage</option>
-                    <option value="fashion">Services</option>
+                    id="kt_ecommerce_add_product_store_template" @change="redirectToRoute($event)">
+                    <option disabled selected>Selecciona el tipo de producto</option>
+                    <option value="/apps/productos/addproduct/carro">Cars</option>
+                    <option value="/apps/productos/addproduct/piezas">Parts</option>
+                    <option value="/apps/productos/addproduct/piezas">Garage</option>
+                    <option value="/apps/productos/addproduct/servicio">Services</option>
                 </select>
                 <!--end::Select2-->
                 <!--begin::Description-->
@@ -155,6 +154,14 @@
     </div>
     <!--end::Aside column-->
 </template>
+<script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
+ const redirectToRoute=(event)=> {
+      const selectedValue = event.target.value; 
+      router.push(selectedValue); 
+    }
+</script>
 <style>
 .image-input-placeholder {
   background-image: url("public/media/svg/files/blank-image.svg") !important;

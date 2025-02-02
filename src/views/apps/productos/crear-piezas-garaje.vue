@@ -4,7 +4,7 @@
 		<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 			
 			<!--begin::Wrapper-->
-			<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+			<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper_garaje_piezas">
 
 				<!--begin::Main-->
 				<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -42,7 +42,7 @@
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
-										<li class="breadcrumb-item text-muted">Catalog</li>
+										<li class="breadcrumb-item text-muted">Piezas , Equipamiento de garaje</li>
 										<!--end::Item-->
 									</ul>
 									<!--end::Breadcrumb-->
@@ -131,7 +131,7 @@
 																<!--end::Label-->
 																<!--begin::Input-->
 																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Product description"
+																	class="form-control mb-2" as="textarea" placeholder="Product description"
 																	value="" />
 																<!--end::Input-->
 																<!--begin::Editor-->
@@ -470,3 +470,9 @@
 	</div>
 	<!--end::Page-->
 </template>
+
+<style>
+#kt_app_wrapper_garaje_piezas {
+  margin: 0;
+}
+</style>

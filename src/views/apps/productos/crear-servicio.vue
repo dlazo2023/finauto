@@ -1,10 +1,13 @@
+<script setup>
+
+</script>
 <template>
 	<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
 		<!--begin::Page-->
 		<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 			
 			<!--begin::Wrapper-->
-			<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+			<div class="app-wrapper flex-column" id="kt_app_wrapper_servicio">
 
 				<!--begin::Main-->
 				<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -124,7 +127,7 @@
 																<!--end::Label-->
 																<!--begin::Input-->
 																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Product description"
+																	class="form-control mb-2" as="textarea" placeholder="Product description"
 																	value="" />
 																<!--end::Input-->
 																<!--begin::Editor-->
@@ -373,12 +376,12 @@
 											<!--begin::Button-->
 											<a href="apps/ecommerce/catalog/products.html"
 												id="kt_ecommerce_add_product_cancel"
-												class="btn btn-light me-5">Cancel</a>
+												class="btn btn-light me-5">Cancelar</a>
 											<!--end::Button-->
 											<!--begin::Button-->
 											<button type="submit" id="kt_ecommerce_add_product_submit"
 												class="btn btn-primary">
-												<span class="indicator-label">Save Changes</span>
+												<span class="indicator-label">Guardar</span>
 												<span class="indicator-progress">Please wait...
 													<span
 														class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -406,3 +409,9 @@
 	</div>
 	<!--end::Page-->
 </template>
+
+<style>
+#kt_app_wrapper_servicio {
+  margin: 0;
+}
+</style>

@@ -5,7 +5,7 @@
 		<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 			
 			<!--begin::Wrapper-->
-			<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+			<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper_carro">
 
 				<!--begin::Main-->
 				<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -43,7 +43,7 @@
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
-										<li class="breadcrumb-item text-muted">Catalog</li>
+										<li class="breadcrumb-item text-muted">Carro</li>
 										<!--end::Item-->
 									</ul>
 									<!--end::Breadcrumb-->
@@ -609,3 +609,9 @@
 	</div>
 	<!--end::Page-->
 </template>
+
+<style>
+#kt_app_wrapper_carro {
+  margin: 0;
+}
+</style>

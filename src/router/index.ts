@@ -5,6 +5,7 @@ import {
 } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { useConfigStore } from "@/stores/config";
+import asideLayoutVue from "@/layouts/aside-layout.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -34,14 +35,32 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       
+      // {
+      //   path: "/apps/productos/addproduct",
+      //   name: "apps-productos-addproduct",
+      //   component: () => import("@/views/apps/productos/crear-servicio.vue"),
+      //   meta: {
+      //     pageTitle: "Añadir Producto",
+      //     breadcrumbs: ["Apps", "Productos"],
+      //   },
+      // },
       {
-        path: "/apps/productos/addproduct",
-        name: "apps-productos-addproduct",
-        component: () => import("@/views/apps/productos/crear-piezas-garaje.vue"),
-        meta: {
-          pageTitle: "Añadir Producto",
-          breadcrumbs: ["Apps", "Productos"],
-        },
+        path: '/apps/productos/addproduct',
+        component: asideLayoutVue, // Usamos un layout público
+        children: [
+          {
+            path: 'servicio',
+            component: () => import("@/views/apps/productos/crear-servicio.vue"),
+          },
+          {
+            path: 'carro',
+            component: () => import("@/views/apps/productos/crear-carro.vue"),
+          },
+          {
+            path: 'piezas',
+            component: () => import("@/views/apps/productos/crear-piezas-garaje.vue"),
+          }
+        ]
       },
       {
         path: "/apps/productos/productlisting",
