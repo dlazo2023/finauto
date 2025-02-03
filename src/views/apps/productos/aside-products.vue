@@ -4,80 +4,72 @@
     <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
         <!--begin::Thumbnail settings-->
         <div class="card card-flush py-4">
-            <!--begin::Card header-->
-            <div class="card-header">
-                <!--begin::Card title-->
-                <div class="card-title">
-                    <h2>Thumbnail</h2>
-                </div>
-                <!--end::Card title-->
-            </div>
-            <!--end::Card header-->
-            <!--begin::Card body-->
-            <div class="card-body text-center pt-0">
-                <!--begin::Image input-->
-                <!--begin::Image input placeholder-->
-                <!-- <style>
-                    .image-input-placeholder {
-                        background-image: url('assets/media/svg/files/blank-image.svg');
-                    }
+    <!-- Card header -->
+    <div class="card-header">
+      <div class="card-title">
+        <h2>Thumbnail</h2>
+      </div>
+    </div>
 
-                    [data-bs-theme="dark"] .image-input-placeholder {
-                        background-image: url('assets/media/svg/files/blank-image-dark.svg');
-                    }
-                </style> -->
-                <!--end::Image input placeholder-->
-                <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                    data-kt-image-input="true">
-                    <!--begin::Preview existing avatar-->
-                    <div class="image-input-wrapper w-150px h-150px"></div>
-                    <!--end::Preview existing avatar-->
-                    <!--begin::Label-->
-                    <label
-                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                        data-kt-image-input-action="change" data-bs-toggle="tooltip"
-                        title="Change avatar">
-                        <i class="ki-duotone ki-pencil fs-7">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                        <!--begin::Inputs-->
-                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                        <input type="hidden" name="avatar_remove" />
-                        <!--end::Inputs-->
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Cancel-->
-                    <span
-                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                        title="Cancel avatar">
-                        <i class="ki-duotone ki-cross fs-2">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                    </span>
-                    <!--end::Cancel-->
-                    <!--begin::Remove-->
-                    <span
-                        class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                        data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-                        title="Remove avatar">
-                        <i class="ki-duotone ki-cross fs-2">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                    </span>
-                    <!--end::Remove-->
-                </div>
-                <!--end::Image input-->
-                <!--begin::Description-->
-                <div class="text-muted fs-7">Set the product thumbnail image. Only
-                    *.png, *.jpg and *.jpeg image files are accepted</div>
-                <!--end::Description-->
-            </div>
-            <!--end::Card body-->
-        </div>
+    <!-- Card body -->
+    <div class="card-body text-center pt-0">
+      <!-- Image input -->
+      <div 
+        class="image-input image-input-outline mb-3"
+        :class="{ 'image-input-empty': !imagePreview }"
+        @dragover.prevent
+        @dragenter.prevent
+        @drop="handleImageDrop"
+      >
+        <!-- Preview -->
+        <div 
+          class="image-input-wrapper w-150px h-150px" 
+          :style="imagePreview ? `background-image: url(${imagePreview})` : ''"
+        ></div>
+
+        <!-- Change Image -->
+        <label 
+          class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+          title="Change avatar"
+          @click="triggerFileInput"
+        >
+          <i class="ki-duotone ki-pencil fs-7"></i>
+          <input 
+            type="file" 
+            class="d-none" 
+            accept="image/png, image/jpg, image/jpeg" 
+            @change="handleImageUpload"
+            ref="imageInput"
+          />
+        </label>
+
+        <!-- Cancel (Restore previous image) -->
+        <span 
+          class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+          title="Cancel avatar"
+          @click="restorePreviousImage"
+        >
+          <i class="ki-duotone ki-cross fs-2"></i>
+        </span>
+
+        <!-- Remove -->
+        <span 
+          class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+          title="Remove avatar"
+          @click="removeImage"
+        >
+          <i class="ki-duotone ki-cross fs-2"></i>
+        </span>
+      </div>
+
+      <!-- Description -->
+      <div class="text-muted fs-7">
+        Set the product thumbnail image. Only *.png, *.jpg, and *.jpeg files are accepted.
+      </div>
+
+      <div v-if="errors.image" class="text-danger mt-2">{{ errors.image }}</div>
+    </div>
+  </div>
         <!--end::Thumbnail settings-->
         <!--begin::Status-->
         <div class="card card-flush py-4">
@@ -154,20 +146,127 @@
     </div>
     <!--end::Aside column-->
 </template>
-<script setup>
+
+
+<script>
+import { ref, nextTick } from "vue";
+import { useForm } from "vee-validate";
+import * as yup from "yup";
 import { useRouter } from 'vue-router';
-const router = useRouter();
- const redirectToRoute=(event)=> {
+
+export default {
+  setup() {
+    const imageFile = ref(null);
+    const imagePreview = ref("");
+    const previousImage = ref(""); // Guarda la imagen anterior en caso de cancelar
+    const imageInput = ref(null);
+    const router = useRouter();
+
+    const redirectToRoute=(event)=> {
       const selectedValue = event.target.value; 
       router.push(selectedValue); 
     }
+
+    const { setErrors, errors } = useForm({
+      validationSchema: yup.object({
+        image: yup.mixed().nullable().required("La imagen es obligatoria"),
+      }),
+    });
+
+    // Subir imagen desde input
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      validateImage(file);
+    };
+
+    // Manejo de arrastrar y soltar imagen
+    const handleImageDrop = (event) => {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0];
+      validateImage(file);
+    };
+
+    // Validar y mostrar imagen
+    const validateImage = (file) => {
+      if (!file) {
+        setErrors({ image: "Debes seleccionar una imagen" });
+        return;
+      }
+      if (!file.type.startsWith("image/")) {
+        setErrors({ image: "El archivo debe ser una imagen" });
+        return;
+      }
+
+      imageFile.value = file;
+      previousImage.value = imagePreview.value; // Guardar imagen anterior por si cancela
+      imagePreview.value = URL.createObjectURL(file);
+    };
+
+    // Restaurar imagen anterior (Cancelar)
+    const restorePreviousImage = () => {
+      imagePreview.value = previousImage.value;
+    };
+
+    // Eliminar imagen
+    const removeImage = () => {
+      imageFile.value = null;
+      imagePreview.value = "";
+    };
+
+    // Activar input file correctamente
+    const triggerFileInput = () => {
+      nextTick(() => {
+        imageInput.value.click();
+      });
+    };
+
+    return {
+      imagePreview,
+      imageInput,
+      handleImageUpload,
+      handleImageDrop,
+      restorePreviousImage,
+      triggerFileInput,
+      removeImage,
+      errors,
+      router,
+      redirectToRoute,
+    };
+  },
+};
 </script>
-<style>
+
+<style scoped>
 .image-input-placeholder {
   background-image: url("public/media/svg/files/blank-image.svg") !important;
 }
 
 [data-bs-theme="dark"] .image-input-placeholder {
   background-image: url("public/media/svg/files/blank-image.svg") !important;
+}
+
+.image-input {
+  position: relative;
+  display: inline-block;
+  border-radius: 10px;
+  border: 2px dashed #ccc;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.image-input:hover {
+  border-color: #007bff;
+  background: rgba(0, 123, 255, 0.1);
+}
+.image-input-wrapper {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+}
+.image-input-empty .image-input-wrapper {
+  background-image: url("https://via.placeholder.com/150");
 }
 </style>

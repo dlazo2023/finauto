@@ -1,119 +1,10 @@
-<script>
-import { defineComponent, ref } from "vue";
-import { useForm, Field } from "vee-validate";
-import * as yup from "yup";
-
-export default defineComponent({
-  components: { Field },
-  setup() {
-    const imageFile = ref(null);
-    const imagePreview = ref("");
-    const file = ref(null);
-    const fileName = ref("");
-    const imageInput = ref(null);
-    const fileInput = ref(null);
-
-    const { handleSubmit, setErrors, errors } = useForm({
-      validationSchema: yup.object({
-        name: yup.string().required("El nombre es obligatorio").min(3).max(50),
-        description: yup.string().required("La descripción es obligatoria").min(5).max(200),
-      }),
-    });
-
-    // Manejador para cargar la imagen
-    const handleImageUpload = (event) => {
-      const selectedFile = event.target.files[0];
-      validateImage(selectedFile);
-    };
-
-    // Manejador para arrastrar y soltar la imagen
-    const handleImageDrop = (event) => {
-      event.preventDefault();
-      const selectedFile = event.dataTransfer.files[0];
-      validateImage(selectedFile);
-    };
-
-    // Validar imagen
-    const validateImage = (selectedFile) => {
-      if (!selectedFile) {
-        setErrors({ image: "Debes seleccionar una imagen" });
-        return;
-      }
-      if (!selectedFile.type.startsWith("image/")) {
-        setErrors({ image: "El archivo debe ser una imagen" });
-        return;
-      }
-
-      imageFile.value = selectedFile;
-      imagePreview.value = URL.createObjectURL(selectedFile);
-    };
-
-    // Manejador para cargar el archivo
-    const handleFileUpload = (event) => {
-      const selectedFile = event.target.files[0];
-      validateFile(selectedFile);
-    };
-
-    // Manejador para arrastrar y soltar archivos
-    const handleFileDrop = (event) => {
-      event.preventDefault();
-      const selectedFile = event.dataTransfer.files[0];
-      validateFile(selectedFile);
-    };
-
-    // Validar archivo
-    const validateFile = (selectedFile) => {
-      if (!selectedFile) {
-        setErrors({ file: "Debes seleccionar un archivo" });
-        return;
-      }
-
-      file.value = selectedFile;
-      fileName.value = selectedFile.name;
-    };
-
-    const onSubmit = handleSubmit((values) => {
-      if (!imageFile.value) {
-        setErrors({ image: "Debes subir una imagen" });
-        return;
-      }
-      if (!file.value) {
-        setErrors({ file: "Debes subir un archivo" });
-        return;
-      }
-
-      console.log("Datos enviados:", {
-        image: imageFile.value,
-        file: file.value,
-        name: values.name,
-        description: values.description,
-      });
-
-      alert("Formulario enviado con éxito");
-    });
-
-    return {
-      imagePreview,
-      fileName,
-      imageInput,
-      fileInput,
-      handleImageUpload,
-      handleFileUpload,
-      handleImageDrop,
-      handleFileDrop,
-      onSubmit,
-      errors,
-    };
-  },
-});
-</script>
 <template>
 	<div class="d-flex flex-column flex-root app-root" id="kt_app_root">
 		<!--begin::Page-->
 		<div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 			
 			<!--begin::Wrapper-->
-			<div class="app-wrapper flex-column" id="kt_app_wrapper_servicio">
+			<div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
 
 				<!--begin::Main-->
 				<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -151,7 +42,7 @@ export default defineComponent({
 										</li>
 										<!--end::Item-->
 										<!--begin::Item-->
-										<li class="breadcrumb-item text-muted">Servicio</li>
+										<li class="breadcrumb-item text-muted">Catalog</li>
 										<!--end::Item-->
 									</ul>
 									<!--end::Breadcrumb-->
@@ -202,26 +93,39 @@ export default defineComponent({
 														<!--begin::Card body-->
 														<div class="card-body pt-0">
 															<!--begin::Input group-->
-															 <!-- Nombre -->
-															</div>		  
+															<div class="mb-10 fv-row">
+																<!--begin::Label-->
+																<label class="required form-label">Product Name</label>
+																<!--end::Label-->
+																<!--begin::Input-->
+																<input type="text" name="product_name"
+																	class="form-control mb-2" placeholder="Product name"
+																	value="" />
+																<!--end::Input-->
+																<!--begin::Description-->
+																<div class="text-muted fs-7">A product name is required
+																	and recommended to be unique.</div>
+																<!--end::Description-->
 
-															
-        <div class="mb-3 mx-4">
-          <label class="form-label required">Nombre</label>
-          <Field name="name" v-slot="{ field, errors }" rules="required|min:3|max:50">
-            <input type="text" class="form-control" v-bind="field">
-            <div v-if="errors.length" class="text-danger">{{ errors[0] }}</div>
-          </Field>
-        </div>
-
-        <!-- Descripción -->
-        <div class="mb-3 mx-4">
-          <label class="form-label required">Descripción</label>
-          <Field name="description" v-slot="{ field, errors }" rules="required|min:5|max:200">
-            <textarea class="form-control" v-bind="field" rows="3"></textarea>
-            <div v-if="errors.length" class="text-danger">{{ errors[0] }}</div>
-          </Field>
-        </div>
+															</div>
+															<!--end::Input group-->
+															<!--begin::Input group-->
+															<div>
+																<!--begin::Label-->
+																<label class="form-label">Description</label>
+																<!--end::Label-->
+																<!--begin::Editor-->
+																<div id="kt_ecommerce_add_product_description"
+																	name="kt_ecommerce_add_product_description"
+																	class="min-h-200px mb-2"></div>
+																<!--end::Editor-->
+																<!--begin::Description-->
+																<div class="text-muted fs-7">Set a description to the
+																	product for better visibility.</div>
+																<!--end::Description-->
+															</div>
+															<!--end::Input group-->
+														</div>
 														<!--end::Card header-->
 													</div>
 													<!--end::General options-->
@@ -239,48 +143,27 @@ export default defineComponent({
 															<!--begin::Input group-->
 															<div class="fv-row mb-2">
 																<!--begin::Dropzone-->
-																<div class="dropzone p-0"
+																<div class="dropzone"
 																	id="kt_ecommerce_add_product_media">
 																	<!--begin::Message-->
 																	<div class="dz-message needsclick">
 																		<!--begin::Icon-->
-																		
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		
-																			
-																				 <!-- Archivo con Drag & Drop y Clic -->
-        <div 
-          class="upload-box"
-          @click="fileInput.click()"
-          @dragover.prevent 
-          @dragenter.prevent 
-          @drop="handleFileDrop"
-        >
-		
-          <input 
-            type="file" 
-            class="d-none" 
-            @change="handleFileUpload" 
-            ref="fileInput"
-          >
-          <div class="drag-area text-center p-3">
-			<i
-																			class="ki-duotone ki-file-up text-primary fs-3x m-3">
+																		<i
+																			class="ki-duotone ki-file-up text-primary fs-3x">
 																			<span class="path1"></span>
 																			<span class="path2"></span>
 																		</i>
-            <p v-if="!fileName" class="m-0">Haz clic o arrastra un archivo aquí</p>
-            <p v-else class="mt-2">Archivo seleccionado: {{ fileName }}</p>
-          </div>
-        </div>
-        <div v-if="errors.file" class="text-danger">{{ errors.file }}</div>
-        </div>
-																		
-          
-          
+																		<!--end::Icon-->
+																		<!--begin::Info-->
+																		<div class="ms-4">
+																			<h3 class="fs-5 fw-bold text-gray-900 mb-1">
+																				Drop files here or click to upload.</h3>
+																			<span
+																				class="fs-7 fw-semibold text-gray-500">Upload
+																				up to 10 files</span>
+																		</div>
 																		<!--end::Info-->
-																	
+																	</div>
 																</div>
 																<!--end::Dropzone-->
 															</div>
@@ -294,26 +177,81 @@ export default defineComponent({
 													</div>
 													<!--end::Media-->
 													<!--begin::Pricing-->
-													
+													<div class="card card-flush py-4">
+														<!--begin::Card header-->
+														<div class="card-header">
+															<div class="card-title">
+																<h2>Pricing</h2>
+															</div>
+														</div>
+														<!--end::Card header-->
+														<!--begin::Card body-->
+														<div class="card-body pt-0">
+															<!--begin::Input group-->
+															<div class="mb-10 fv-row">
+																<!--begin::Label-->
+																<label class="required form-label">Base Price</label>
+																<!--end::Label-->
+																<!--begin::Input-->
+																<input type="text" name="price"
+																	class="form-control mb-2"
+																	placeholder="Product price" value="" />
+																<!--end::Input-->
+																<!--begin::Description-->
+																<div class="text-muted fs-7">Set the product price.
+																</div>
+																<!--end::Description-->
+															</div>
+															<!--end::Input group-->
+
+															<!--begin::Input group-->
+															<div class="d-none mb-10 fv-row"
+																id="kt_ecommerce_add_product_discount_percentage">
+																<!--begin::Label-->
+																<label class="form-label">Set Discount
+																	Percentage</label>
+																<!--end::Label-->
+																<!--begin::Slider-->
+																<div class="d-flex flex-column text-center mb-5">
+																	<div
+																		class="d-flex align-items-start justify-content-center mb-7">
+																		<span class="fw-bold fs-3x"
+																			id="kt_ecommerce_add_product_discount_label">0</span>
+																		<span class="fw-bold fs-4 mt-1 ms-2">%</span>
+																	</div>
+																	<div id="kt_ecommerce_add_product_discount_slider"
+																		class="noUi-sm"></div>
+																</div>
+																<!--end::Slider-->
+																<!--begin::Description-->
+																<div class="text-muted fs-7">Set a percentage discount
+																	to be applied on this product.</div>
+																<!--end::Description-->
+															</div>
+															<!--end::Input group-->
+															<!--begin::Input group-->
+
+
+														</div>
+														<!--end::Card header-->
+													</div>
 													<!--end::Pricing-->
 												</div>
 											</div>
 											<!--end::Tab pane-->
-											<!--begin::Tab pane-->
 											
-											<!--end::Tab pane-->
 										</div>
 										<!--end::Tab content-->
 										<div class="d-flex justify-content-end">
 											<!--begin::Button-->
 											<a href="apps/ecommerce/catalog/products.html"
 												id="kt_ecommerce_add_product_cancel"
-												class="btn btn-light me-5">Cancelar</a>
+												class="btn btn-light me-5">Cancel</a>
 											<!--end::Button-->
 											<!--begin::Button-->
 											<button type="submit" id="kt_ecommerce_add_product_submit"
 												class="btn btn-primary">
-												<span class="indicator-label">Guardar</span>
+												<span class="indicator-label">Save Changes</span>
 												<span class="indicator-progress">Please wait...
 													<span
 														class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -341,25 +279,3 @@ export default defineComponent({
 	</div>
 	<!--end::Page-->
 </template>
-
-<style scoped>
-#kt_app_wrapper_servicio {
-  margin: 0;
-}
-.upload-box {
-  padding: 0;
-  width: 100%;
-  margin: 0;
-}
-.upload-box:hover {
-  border-color: #007bff;
-  background: rgba(0, 123, 255, 0.1);
-}
-.drag-area {
-  min-height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-}
-</style>

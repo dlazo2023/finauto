@@ -358,6 +358,10 @@ const MainMenuConfig: Array<MenuItem> = [
 
             ]
           },
+          {
+            heading: "Servicios",
+            route: "/admin/nomencladores/servicios",
+          },
           
         ],
       },

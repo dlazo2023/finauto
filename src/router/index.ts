@@ -35,23 +35,10 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       
-      // {
-      //   path: "/apps/productos/addproduct",
-      //   name: "apps-productos-addproduct",
-      //   component: () => import("@/views/apps/productos/crear-servicio.vue"),
-      //   meta: {
-      //     pageTitle: "Añadir Producto",
-      //     breadcrumbs: ["Apps", "Productos"],
-      //   },
-      // },
       {
         path: '/apps/productos/addproduct',
-        component: asideLayoutVue, // Usamos un layout público
+        component: asideLayoutVue, 
         children: [
-          {
-            path: 'servicio',
-            component: () => import("@/views/apps/productos/crear-servicio.vue"),
-          },
           {
             path: 'carro',
             component: () => import("@/views/apps/productos/crear-carro.vue"),
@@ -513,6 +500,15 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           pageTitle: "Listado de Provincias",
           breadcrumbs: ["Administracion", "Nomencladores", "Municipios"],
+        },
+      },
+      {
+        path: "/admin/nomencladores/servicios",
+        name: "servicios",
+        component: () => import("@/views/crafted/admin/nomencladores/servicioList.vue"),
+        meta: {
+          pageTitle: "Listado de Servicios",
+          breadcrumbs: ["Administracion", "Nomencladores", "Servicios"],
         },
       },
 
