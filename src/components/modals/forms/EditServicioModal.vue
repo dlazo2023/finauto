@@ -1,8 +1,8 @@
 <template>
   <div
     class="modal fade"
-    id="kt_modal_edit_provincia"
-    ref="addProvinciaModalRef"
+    id="kt_modal_edit_servicio"
+    ref="editServicioModalRef"
     tabindex="-1"
     aria-hidden="true"
   >
@@ -13,7 +13,7 @@
         <!--begin::Modal header-->
         <div class="modal-header" id="kt_modal_edit_provincia_header">
           <!--begin::Modal title-->
-          <h2 class="fw-bold">Editar Provincia</h2>
+          <h2 class="fw-bold">Editar Servicio</h2>
           <!--end::Modal title-->
 
           <!--begin::Close-->
@@ -28,102 +28,55 @@
         </div>
         <!--end::Modal header-->
         <!--begin::Form-->
-        <el-form
-          @submit.prevent="submit()"
-          :model="formData"
-          :rules="rules"
-          ref="formRef"
-        >
-          <!--begin::Modal body-->
-          <div class="modal-body py-10 px-lg-17">
-            <!--begin::Scroll-->
-            <div
-              class="scroll-y me-n7 pe-7"
-              id="kt_modal_edit_provincia_scroll"
-              data-kt-scroll="true"
-              data-kt-scroll-activate="{default: false, lg: true}"
-              data-kt-scroll-max-height="auto"
-              data-kt-scroll-dependencies="#kt_modal_edit_provincia_header"
-              data-kt-scroll-wrappers="#kt_modal_edit_provincia_scroll"
-              data-kt-scroll-offset="300px"
-            >
-              <!--begin::Input group-->
-              <div class="fv-row mb-7">
-                <!--begin::Label-->
-                <label class="required fs-6 fw-semibold mb-2">Name</label>
-                <!--end::Label-->
+        <Form 
+    @submit="handleSubmit" 
+    :validation-schema="schema"  
+    ref="formRef"
+    class="my-6"
+  >
+    <div class="card shadow-sm">
+      <!-- Sección de imagen -->
+      <div class="mb-4 px-4 py-4 col-11 mx-6">
+        <ImageInput 
+         v-model="formData.image"
+          :error="errors.image || ''" 
+        />
+      </div>
 
-                <!--begin::Input-->
-                <el-form-item prop="name">
-                  <el-input
-                    v-model="formData.name"
-                    type="text"
-                    placeholder=""
-                  />
-                </el-form-item>
-                <!--end::Input-->
-              </div>
-              <!--end::Input group-->
+      <!-- Campo: Nombre del servicio -->
+      <div class="mb-4 px-4 py-4 col-11 mx-6">
+        <label class="required form-label">Nombre del servicio</label>
+        <Field 
+          name="nombre" 
+          v-model="formData.nombre"
+          as="input" 
+          type="text" 
+          class="form-control" 
+          placeholder="Ponga el nombre del servicio" 
+        />
+        <ErrorMessage name="nombre" class="text-danger" />
+      </div>
 
-              <!--begin::Input group-->
-              <div class="fv-row mb-7">
-                <!--begin::Label-->
-                <label class="fs-6 fw-semibold mb-2">
-                  <span class="required">Pais</span>
+      <!-- Campo: Descripción -->
+      <div class="mb-4 px-4 py-4 col-11 mx-6">
+        <label class="required form-label">Descripción</label>
+        <Field 
+          name="descripcion" 
+          v-model="formData.descripcion"
+          as="textarea" 
+          class="form-control" 
+          placeholder="Ponga la descripción" 
+        />
+        <ErrorMessage name="descripcion" class="text-danger" />
+      </div>
+    </div>
 
-                  <i
-                    class="fas fa-exclamation-circle ms-1 fs-7"
-                    data-bs-toggle="tooltip"
-                    title="Pais must be active"
-                  ></i>
-                </label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <el-form-item prop="pais">
-                  <el-input v-model="formData.pais" />
-                </el-form-item>
-                <!--end::Input-->
-              </div>
-              <!--end::Input group-->
-            </div>
-            <!--end::Scroll-->
-          </div>
-          <!--end::Modal body-->
-
-          <!--begin::Modal footer-->
-          <div class="modal-footer flex-center">
-            <!--begin::Button-->
-            <button
-              type="reset"
-              id="kt_modal_edit_provincia_cancel"
-              class="btn btn-light me-3"
-            >
-              Discard
-            </button>
-            <!--end::Button-->
-
-            <!--begin::Button-->
-            <button
-              :data-kt-indicator="loading ? 'on' : null"
-              class="btn btn-lg btn-primary"
-              type="submit"
-            >
-              <span v-if="!loading" class="indicator-label">
-                Actualizar
-                <KTIcon icon-name="arrow-right" icon-class="fs-2 me-2 me-0" />
-              </span>
-              <span v-if="loading" class="indicator-progress">
-                Please wait...
-                <span
-                  class="spinner-border spinner-border-sm align-middle ms-2"
-                ></span>
-              </span>
-            </button>
-            <!--end::Button-->
-          </div>
-          <!--end::Modal footer-->
-        </el-form>
+    <!-- Footer del formulario -->
+    <div class="card-footer my-8 d-flex justify-content-end">
+      <a href="#" class="btn btn-bg-secondary" data-bs-dismiss="modal">Cancelar</a>
+      <button type="submit" class="btn btn-bg-primary mx-3">Actualizar</button>
+    </div>
+  </Form>
         <!--end::Form-->
       </div>
     </div>
@@ -131,115 +84,94 @@
 </template>
 
 <script lang="ts">
-import { getAssetPath } from "@/core/helpers/assets";
-import { defineComponent, ref, watch } from "vue";
-import { hideModal } from "@/core/helpers/modal";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-
-export default defineComponent({
-  name: "add-customer-modal",
-  components: {},
-  props: {
+import { defineComponent ,ref ,watch } from "vue";
+  import * as yup from "yup";
+  import { Form, Field, ErrorMessage ,useForm} from "vee-validate";
+  import { hideModal } from "@/core/helpers/modal";
+  import { useServiceStore } from "@/stores/servicios"; 
+  import { type IServicio } from "@/core/data/servicios"; 
+  import ImageInput from "@/components/ImageInput.vue";
+  
+  export default defineComponent({
+    name: "AddServicio",
+    components: {
+      Form,
+      Field,
+      ErrorMessage,
+      ImageInput,
+    },
+    props: {
     servicio: {
       type: Object,
       required: true,
     },
   },
-  setup(props) {
-    const formRef = ref<null | HTMLFormElement>(null);
-    const addProvinciaModalRef = ref<null | HTMLElement>(null);
-    const loading = ref<boolean>(false);
 
-    const formData = ref({
-      name: "",
-      pais: "",
+    setup(props) {
+      const idEdit = ref()
+      const formData = ref({
+      image:"",
+      nombre: "",
+      descripcion: "",
     });
 
     watch(
       () => props.servicio,
-      (newProvincia) => {
-        if (newProvincia) {
-          formData.value.name = newProvincia.name || "";
-          formData.value.pais = newProvincia.pais || "";
+      (ServiceToEdit) => {
+        if (ServiceToEdit) {
+          idEdit.value =ServiceToEdit.id;
+          formData.value.image = ServiceToEdit.image || "";
+          formData.value.nombre = ServiceToEdit.nombre || "";
+          formData.value.descripcion = ServiceToEdit.descripcion || "";
         }
       },
       { immediate: true } // Ensure it runs when the component is mounted
     );
-
-    const rules = ref({
-      name: [
-        {
-          required: true,
-          message: "Customer name is required",
-          trigger: "change",
-        },
-      ],
-      email: [
-        {
-          required: true,
-          message: "Customer email is required",
-          trigger: "change",
-        },
-      ],
-      role: [
-        {
-          required: true,
-          message: "Role is required",
-          trigger: "change",
-        },
-      ],
+      const serviceStore = useServiceStore();  
+      const formRef = ref<null | HTMLFormElement>(null);
+     const editServicioModalRef = ref<null | HTMLElement>(null);
+     const schema = yup.object({
+      nombre: yup.string().required("El nombre es obligatorio"),
+      descripcion: yup.string().required("La descripción es obligatoria"),
+      image: yup.string().required("La imagen es obligatoria")
     });
 
-    const submit = () => {
-      if (!formRef.value) {
-        return;
-      }
+    const { errors } = useForm({ validationSchema: schema });
 
-      formRef.value.validate((valid: boolean) => {
-        if (valid) {
-          loading.value = true;
+      
+    // URL de la imagen (usada en el ImageInput mediante v-model)
+    const imageUrl = ref<string>("");
 
-          setTimeout(() => {
-            loading.value = false;
+   
 
-            Swal.fire({
-              text: "Form has been successfully submitted!",
-              icon: "success",
-              buttonsStyling: false,
-              confirmButtonText: "Ok, got it!",
-              heightAuto: false,
-              customClass: {
-                confirmButton: "btn btn-primary",
-              },
-            }).then(() => {
-              hideModal(addProvinciaModalRef.value);
-            });
-          }, 2000);
-        } else {
-          Swal.fire({
-            text: "Sorry, looks like there are some errors detected, please try again.",
-            icon: "error",
-            buttonsStyling: false,
-            confirmButtonText: "Ok, got it!",
-            heightAuto: false,
-            customClass: {
-              confirmButton: "btn btn-primary",
-            },
-          });
-          return false;
-        }
-      });
-    };
+      const handleSubmit = (values: any, { resetForm }: { resetForm: () => void }) => {
+        console.log("ejecutando");
 
-    return {
-      formData,
-      rules,
-      submit,
-      formRef,
-      loading,
-      addProvinciaModalRef,
-      getAssetPath,
-    };
-  },
-});
+      const editService :IServicio = {
+        id: idEdit.value, 
+        nombre: formData.value.nombre,
+        descripcion: formData.value.descripcion,
+        image: formData.value.image,
+      };
+
+        serviceStore.updateService(editService);
+        console.log("servicio agregado:", editService);
+        hideModal(editServicioModalRef.value);
+        resetForm();
+        imageUrl.value = ""; 
+      };
+
+   
+    
+      return {
+        schema,
+        handleSubmit,
+        formRef,
+        editServicioModalRef,
+        imageUrl,
+        errors,
+        formData
+      };
+    },
+  });
 </script>

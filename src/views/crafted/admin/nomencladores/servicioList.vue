@@ -105,6 +105,13 @@
         :checkbox-enabled="true"
         checkbox-label="id"
       >
+      <template v-slot:image="{ row: servicio }">
+        <img
+        :src="servicio.image"
+        :alt="servicio.name"
+        style="width: 50px; height: 50px;"
+        />
+        </template>
         <template v-slot:nombre="{ row: servicio }">
           {{ servicio.nombre }}
         </template>
@@ -182,6 +189,12 @@ export default defineComponent({
   },
   setup() {
     const tableHeader = ref([
+    {
+        columnName: "Imagen del servicio",
+        columnLabel: "image",
+        sortEnabled: true,
+        columnWidth: 250,
+      },
       {
         columnName: "Nombre del servicio",
         columnLabel: "nombre",
@@ -211,6 +224,7 @@ export default defineComponent({
     });
 
     const selectedServicio = ref();
+    
     const deleteFewCustomers = () => {
       selectedIds.value.forEach((item) => {
         deleteCustomer(item);
@@ -263,6 +277,7 @@ export default defineComponent({
     };
 
     const editServicio = (servicio) => {
+      console.log(servicio.image);
       selectedServicio.value = servicio;
     };
 
