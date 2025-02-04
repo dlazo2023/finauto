@@ -110,6 +110,33 @@
             {{ customer.customer }}
           </router-link>
         </template>
+        <template v-slot:nameProduct="{ row: customer }">
+          <router-link
+            to="/apps/subscriptions/view-subscription"
+            href=""
+            class="text-gray-800 text-hover-primary mb-1"
+          >
+            {{ customer.nameProduct }}
+          </router-link>
+        </template>
+        <template v-slot:bl="{ row: customer }">
+          <router-link
+            to="/apps/subscriptions/view-subscription"
+            href=""
+            class="text-gray-800 text-hover-primary mb-1"
+          >
+            {{ customer.bl }}
+          </router-link>
+        </template>
+        <template v-slot:cantidad="{ row: customer }">
+          <router-link
+            to="/apps/subscriptions/view-subscription"
+            href=""
+            class="text-gray-800 text-hover-primary mb-1"
+          >
+            {{ customer.cantidad }}
+          </router-link>
+        </template>
         <template v-slot:status="{ row: customer }">
           <a href="#" class="text-gray-600 text-hover-primary mb-1">
             <div :class="`badge badge-light-${customer.color}`">
@@ -171,8 +198,11 @@
             </div>
             <div class="modal-body">
               <p>ID: {{ selectedOrder?.id }}</p>
-              <p>Nombre: {{ selectedOrder?.customer }}</p>
-              <p>Estado: {{ selectedOrder?.status }}</p>
+              <p>Nombre del cliente: {{ selectedOrder?.customer }}</p>
+              <p>Nombre del producto: {{ selectedOrder?.nameProduct }}</p>
+              <p>BL: {{ selectedOrder?.bl }}</p>
+              <p>Cantidad: {{ selectedOrder?.cantidad }}</p>
+              <p>Estado: {{ selectedOrder?.cantidad }}</p>
               <p>Total: {{ formatCurrency(selectedOrder?.total ?? 0) }}</p>
               <p>Fecha Agregada: {{ selectedOrder?.dateadded }}</p>
               <p>Fecha de Creación: {{ selectedOrder?.createdDate }}</p>
@@ -211,6 +241,9 @@ interface ISales {
   id: number;
   customer: string;
   status: string;
+  nameProduct: string;
+  cantidad: number;
+  bl: string;
   color: string;
   total: number;
   dateadded: string;
@@ -251,6 +284,9 @@ export default defineComponent({
         total: 141.0,
         dateadded: "2024/10/14",
         createdDate: "2024/10/15",
+        nameProduct: "Producto 1",
+        cantidad: 2,
+        bl: "pas88asd",
       },
       {
         id: 2,
@@ -260,6 +296,9 @@ export default defineComponent({
         total: 470.0,
         dateadded: "2024/10/10",
         createdDate: "2024/10/14",
+        nameProduct: "Producto 2",
+        cantidad: 2,
+        bl: "0023popo2",
       },
       {
         id: 3,
@@ -269,159 +308,9 @@ export default defineComponent({
         total: 383.0,
         dateadded: "2024/10/09",
         createdDate: "2024/10/13",
-      },
-      {
-        id: 4,
-        customer: "Sean Bean",
-        status: "Pending",
-        color: "",
-        total: 109.0,
-        dateadded: "2024/10/06",
-        createdDate: "12/10/2024",
-      },
-      {
-        id: 5,
-        customer: "Brian Cox",
-        status: "Processing",
-        color: "",
-        total: 141.0,
-        dateadded: "2024/10/07",
-        createdDate: "2024/10/11",
-      },
-      {
-        id: 6,
-        customer: "Mikaela Collins",
-        status: "Denied",
-        color: "",
-        total: 141.0,
-        dateadded: "2024/10/04",
-        createdDate: "2024/10/10",
-      },
-      {
-        id: 7,
-        customer: "Francis Mitcham",
-        status: "Failed",
-        color: "",
-        total: 141.0,
-        dateadded: "2024/10/06",
-        createdDate: "2024/10/09",
-      },
-      {
-        id: 8,
-        customer: "Olivia Wild",
-        status: "Delivered",
-        color: "",
-        total: 256.0,
-        dateadded: "2024/10/01",
-        createdDate: "2024/10/08",
-      },
-      {
-        id: 9,
-        customer: "Neil Owen",
-        status: "Delivered",
-        color: "",
-        total: 141.0,
-        dateadded: "2024/10/01",
-        createdDate: "2024/10/07",
-      },
-      {
-        id: 10,
-        customer: "Dan Wilson",
-        status: "Delivering",
-        color: "",
-        total: 141.0,
-        dateadded: "2024/09/29",
-        createdDate: "2024/10/06",
-      },
-      {
-        id: 11,
-        customer: "Emma Bold",
-        status: "Pending",
-        color: "",
-        total: 470.0,
-        dateadded: "2024/09/29",
-        createdDate: "2024/10/05",
-      },
-      {
-        id: 12,
-        customer: "Ana Crown",
-        status: "Completed",
-        color: "",
-        total: 470.0,
-        dateadded: "2024/10/03",
-        createdDate: "2024/10/04",
-      },
-      {
-        id: 13,
-        customer: "Robert Doe",
-        status: "Completed",
-        color: "",
-        total: 256.0,
-        dateadded: "2024/09/28",
-        createdDate: "2024/10/03",
-      },
-      {
-        id: 14,
-        customer: "John Miller",
-        status: "Cancelled",
-        color: "",
-        total: 109.0,
-        dateadded: "2024/10/01",
-        createdDate: "2024/10/02",
-      },
-      {
-        id: 15,
-        customer: "Lucy Kunic",
-        status: "Refunded",
-        color: "",
-        total: 470.0,
-        dateadded: "2024/09/27",
-        createdDate: "2024/10/01",
-      },
-      {
-        id: 16,
-        customer: "Neil Owen",
-        status: "Refunded",
-        color: "",
-        total: 256.0,
-        dateadded: "2024/09/27",
-        createdDate: "2024/09/30",
-      },
-      {
-        id: 17,
-        customer: "Dan Wilson",
-        status: "Pending",
-        color: "",
-        total: 109.0,
-        dateadded: "2024/09/22",
-        createdDate: "2024/09/29",
-      },
-      {
-        id: 18,
-        customer: "Emma Smith",
-        status: "Pending",
-        color: "",
-        total: 141.0,
-        dateadded: "2024/09/27",
-        createdDate: "2024/09/28",
-      },
-      {
-        id: 19,
-        customer: "Melody Macy",
-        status: "Completed",
-        color: "",
-        total: 470.0,
-        dateadded: "2024/09/21",
-        createdDate: "2024/09/27",
-      },
-      {
-        id: 20,
-        customer: "Max Smith",
-        status: "Completed",
-        color: "",
-        total: 256.0,
-        dateadded: "2024/09/20",
-        createdDate: "2024/09/26",
+        nameProduct: "Producto 3",
+        cantidad: 4,
+        bl: "27g723g",
       },
     ]);
 
@@ -437,13 +326,28 @@ export default defineComponent({
         sortEnabled: true,
       },
       {
-        columnName: "Status",
-        columnLabel: "status",
+        columnName: "Nombre del producto",
+        columnLabel: "nameProduct",
+        sortEnabled: true,
+      },
+      {
+        columnName: "Cantidad",
+        columnLabel: "cantidad",
+        sortEnabled: true,
+      },
+      {
+        columnName: "BL",
+        columnLabel: "bl",
         sortEnabled: true,
       },
       {
         columnName: "Total",
         columnLabel: "total",
+        sortEnabled: true,
+      },
+      {
+        columnName: "Status",
+        columnLabel: "status",
         sortEnabled: true,
       },
       {
