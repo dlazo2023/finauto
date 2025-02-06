@@ -132,7 +132,7 @@
                     <option value="/apps/productos/addproduct/carro">Cars</option>
                     <option value="/apps/productos/addproduct/piezas">Parts</option>
                     <option value="/apps/productos/addproduct/piezas">Garage</option>
-                    <option value="/apps/productos/addproduct/servicio">Services</option>
+                  
                 </select>
                 <!--end::Select2-->
                 <!--begin::Description-->

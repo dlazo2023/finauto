@@ -97,195 +97,138 @@
 														</div>
 														<!--end::Card header-->
 														<!--begin::Card body-->
-														<div class="card-body pt-0">
-															<!--begin::Input group-->
-															<div class="mb-10 fv-row">
-																<!--begin::Label-->
-																<label class="required form-label">Product Name</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Product name"
-																	value="" />
-																<!--end::Input-->
-																<!--begin::Description-->
-																<div class="text-muted fs-7">A product name is required
-																	and recommended to be unique.</div>
-																<!--end::Description-->
+														<div class="card-body">
+															<Form  :validation-schema="schema">
+      <!-- Nombre del producto -->
+      <div class="mb-3">
+        <label class="form-label required">Nombre del producto</label>
+        <Field name="nombre" type="text" class="form-control" />
+        <ErrorMessage name="nombre" class="text-danger" />
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Brand</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Brand name"
-																	value="" />
-																<!--end::Input-->
+      <!-- Descripción -->
+      <div class="mb-3">
+        <label class="form-label required">Descripción</label>
+        <Field name="descripcion" as="textarea" class="form-control" />
+        <ErrorMessage name="descripcion" class="text-danger" />
+      </div>
 
+      <!-- Precio -->
+      <div class="mb-3">
+        <label class="form-label required">Precio</label>
+        <Field name="precio" type="number" class="form-control" />
+        <ErrorMessage name="precio" class="text-danger" />
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Model</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Model name"
-																	value="" />
-																<!--end::Input-->
+      <!-- Marca y Modelo -->
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label required">Marca</label>
+          <Field name="marca" type="text" class="form-control" />
+          <ErrorMessage name="marca" class="text-danger" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Modelo</label>
+          <Field name="modelo" type="text" class="form-control" />
+          <ErrorMessage name="modelo" class="text-danger" />
+        </div>
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Dimensions</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Dimensions"
-																	value="" />
-																<!--end::Input-->
+      <!-- Dimensiones -->
+      <div class="mb-3">
+        <label class="form-label">Dimensiones</label>
+        <Field name="dimensiones" type="text" class="form-control" />
+        <ErrorMessage name="dimensiones" class="text-danger" />
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Cargo box
-																	size</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2"
-																	placeholder="Cargo box size" value="" />
+      <!-- Tamaño de la caja de carga -->
+      <div class="mb-3">
+        <label class="form-label">Tamaño de la caja de carga</label>
+        <Field name="tamanoCajaCarga" type="text" class="form-control" />
+        <ErrorMessage name="tamanoCajaCarga" class="text-danger" />
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Weebare</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Weebare"
-																	value="" />
+      <!-- Otros campos -->
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Weebare</label>
+          <Field name="weebare" type="text" class="form-control" />
+          <ErrorMessage name="weebare" class="text-danger" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Asientos</label>
+          <Field name="asientos" type="number" class="form-control" />
+          <ErrorMessage name="asientos" class="text-danger" />
+        </div>
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Seating</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Seating"
-																	value="" />
+      <!-- Distancia al suelo -->
+      <div class="mb-3">
+        <label class="form-label">Distancia al suelo</label>
+        <Field name="distanciaSuelo" type="text" class="form-control" />
+        <ErrorMessage name="distanciaSuelo" class="text-danger" />
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<!--begin::Label-->
-																<label class="required form-label">Ground
-																	clearance</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="product_name"
-																	class="form-control mb-2"
-																	placeholder="Ground clearance" value="" />
+      <!-- Más especificaciones -->
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Peso vacío</label>
+          <Field name="pesoVacio" type="number" class="form-control" />
+          <ErrorMessage name="pesoVacio" class="text-danger" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Desplazamiento</label>
+          <Field name="desplazamiento" type="text" class="form-control" />
+          <ErrorMessage name="desplazamiento" class="text-danger" />
+        </div>
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Empty weight</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Empty weight"
-																	value="" />
+      <!-- Potencia máxima y Torque -->
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Potencia máxima</label>
+          <Field name="potenciaMaxima" type="text" class="form-control" />
+          <ErrorMessage name="potenciaMaxima" class="text-danger" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Torque</label>
+          <Field name="torque" type="text" class="form-control" />
+          <ErrorMessage name="torque" class="text-danger" />
+        </div>
+      </div>
 
+      <!-- Velocidad máxima -->
+      <div class="mb-3">
+        <label class="form-label">Velocidad máxima</label>
+        <Field name="velocidadMaxima" type="text" class="form-control" />
+        <ErrorMessage name="velocidadMaxima" class="text-danger" />
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Displacement</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Displacement"
-																	value="" />
+      <!-- Tracción y tipo de freno -->
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Tracción</label>
+          <Field name="traccion" type="text" class="form-control" />
+          <ErrorMessage name="traccion" class="text-danger" />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Tipo de freno</label>
+          <Field name="tipoFreno" type="text" class="form-control" />
+          <ErrorMessage name="tipoFreno" class="text-danger" />
+        </div>
+      </div>
 
+      <!-- Capacidad del tanque de combustible -->
+      <div class="mb-3">
+        <label class="form-label">Capacidad del tanque de combustible</label>
+        <Field name="capacidadTanque" type="text" class="form-control" />
+        <ErrorMessage name="capacidadTanque" class="text-danger" />
+      </div>
 
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Maximum power</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2"
-																	placeholder="Maximum power" value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Torque</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Torque"
-																	value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Maximum speed</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2"
-																	placeholder="Maximum speed" value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Traction</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Traction"
-																	value="" />
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Brake type</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Brake type"
-																	value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Tires</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Tires"
-																	value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Gearbox</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2" placeholder="Gearbox"
-																	value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Front
-																	suspension</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2"
-																	placeholder="Front suspension" value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Rear
-																	suspension</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2"
-																	placeholder="Rear suspension" value="" />
-
-
-																<div class="mb-10 fv-row"></div>
-																<label class="required form-label">Fuel tank
-																	capacity</label>
-																<input type="text" name="product_name"
-																	class="form-control mb-2"
-																	placeholder="Fuel tank capacity" value="" />
-
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-															<div>
-																<!--begin::Label-->
-																<label class="form-label">Description</label>
-																<!--end::Label-->
-																<!--begin::Editor-->
-																<div id="kt_ecommerce_add_product_description"
-																	name="kt_ecommerce_add_product_description"
-																	class="min-h-200px mb-2"></div>
-																<!--end::Editor-->
-																<!--begin::Description-->
-																<div class="text-muted fs-7">Set a description to the
-																	product for better visibility.</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Input group-->
+     
+    </Form>
 														</div>
+											
 														<!--end::Card header-->
 													</div>
 													<!--end::General options-->
@@ -336,66 +279,7 @@
 														<!--end::Card header-->
 													</div>
 													<!--end::Media-->
-													<!--begin::Pricing-->
-													<div class="card card-flush py-4">
-														<!--begin::Card header-->
-														<div class="card-header">
-															<div class="card-title">
-																<h2>Pricing</h2>
-															</div>
-														</div>
-														<!--end::Card header-->
-														<!--begin::Card body-->
-														<div class="card-body pt-0">
-															<!--begin::Input group-->
-															<div class="mb-10 fv-row">
-																<!--begin::Label-->
-																<label class="required form-label">Base Price</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="price"
-																	class="form-control mb-2"
-																	placeholder="Product price" value="" />
-																<!--end::Input-->
-																<!--begin::Description-->
-																<div class="text-muted fs-7">Set the product price.
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Input group-->
-
-															<!--begin::Input group-->
-															<div class="d-none mb-10 fv-row"
-																id="kt_ecommerce_add_product_discount_percentage">
-																<!--begin::Label-->
-																<label class="form-label">Set Discount
-																	Percentage</label>
-																<!--end::Label-->
-																<!--begin::Slider-->
-																<div class="d-flex flex-column text-center mb-5">
-																	<div
-																		class="d-flex align-items-start justify-content-center mb-7">
-																		<span class="fw-bold fs-3x"
-																			id="kt_ecommerce_add_product_discount_label">0</span>
-																		<span class="fw-bold fs-4 mt-1 ms-2">%</span>
-																	</div>
-																	<div id="kt_ecommerce_add_product_discount_slider"
-																		class="noUi-sm"></div>
-																</div>
-																<!--end::Slider-->
-																<!--begin::Description-->
-																<div class="text-muted fs-7">Set a percentage discount
-																	to be applied on this product.</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-
-
-														</div>
-														<!--end::Card header-->
-													</div>
-													<!--end::Pricing-->
+												
 												</div>
 											</div>
 											<!--end::Tab pane-->
@@ -609,6 +493,35 @@
 	</div>
 	<!--end::Page-->
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { Form, Field, ErrorMessage, useForm } from "vee-validate";
+import * as yup from "yup";
+
+export default defineComponent({
+  components: { Form, Field, ErrorMessage },
+  setup() {
+    const schema = yup.object({
+      nombre: yup.string().required("El nombre es obligatorio"),
+      descripcion: yup.string().required("La descripción es obligatoria"),
+      precio: yup.number().required("El precio es obligatorio").positive("Debe ser un número positivo"),
+      marca: yup.string().required("La marca es obligatoria"),
+      modelo: yup.string().required("El modelo es obligatorio"),
+      capacidadTanque: yup.string().required("Este campo es obligatorio"),
+    });
+
+    const { handleSubmit } = useForm({ validationSchema: schema });
+
+    const onSubmit = handleSubmit((values) => {
+      console.log("Producto agregado:", values);
+      alert("Producto agregado con éxito 🎉");
+    });
+
+    return { schema, onSubmit };
+  },
+});
+</script>
 
 <style>
 #kt_app_wrapper_carro {

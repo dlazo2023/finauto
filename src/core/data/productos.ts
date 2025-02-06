@@ -9,6 +9,7 @@ interface IProducts {
     correo: string;
     teléfono: string;
 }
+
 const productos : Array<IProducts> = [
     {
         id: 1,

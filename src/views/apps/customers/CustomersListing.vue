@@ -105,21 +105,19 @@
         :checkbox-enabled="true"
         checkbox-label="id"
       >
-        <template v-slot:name="{ row: customer }">
-          {{ customer.name }}
+        <template v-slot:nombre="{ row: customer }">
+          {{ customer.nombre }}
         </template>
         <template v-slot:email="{ row: customer }">
           <a href="#" class="text-gray-600 text-hover-primary mb-1">
             {{ customer.email }}
           </a>
         </template>
-        <template v-slot:company="{ row: customer }">
-          {{ customer.company }}
+        <template v-slot:idcuenta="{ row: customer }">
+          {{ customer.idcuenta }}
         </template>
-        <template v-slot:paymentMethod="{ row: customer }">
-          <img :src="customer.payment.icon" class="w-35px me-3" alt="" />{{
-            customer.payment.ccnumber
-          }}
+        <template v-slot:estado="{ row: customer }">
+        {{ customer.estado }}
         </template>
         <template v-slot:date="{ row: customer }">
           {{ customer.date }}
@@ -188,8 +186,8 @@ export default defineComponent({
   setup() {
     const tableHeader = ref([
       {
-        columnName: "Customer Name",
-        columnLabel: "name",
+        columnName: "Nombre del cliente",
+        columnLabel: "nombre",
         sortEnabled: true,
         columnWidth: 175,
       },
@@ -200,14 +198,14 @@ export default defineComponent({
         columnWidth: 230,
       },
       {
-        columnName: "Company",
-        columnLabel: "company",
+        columnName: "ID de la cuenta",
+        columnLabel: "idcuenta",
         sortEnabled: true,
         columnWidth: 175,
       },
       {
-        columnName: "Payment Method",
-        columnLabel: "paymentMethod",
+        columnName: "Estado",
+        columnLabel: "estado",
         sortEnabled: true,
         columnWidth: 175,
       },

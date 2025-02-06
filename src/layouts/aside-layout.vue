@@ -1,5 +1,4 @@
 <script setup>
-import { Form, Field, ErrorMessage } from "vee-validate";
 import asideProducts from "@/views/apps/productos/aside-products.vue";
 </script>
 <template>
@@ -8,7 +7,7 @@ import asideProducts from "@/views/apps/productos/aside-products.vue";
           <asideProducts></asideProducts>
         </div>
     <div class="col-md-8">
-      <router-view></router-view> <!-- Aquí se renderizan las vistas hijas -->
+      <router-view></router-view>
     </div>
   </div>
 </template>

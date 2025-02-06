@@ -229,7 +229,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/apps/calendar",
         name: "apps-calendar",
-        component: () => import("@/views/apps/Calendar.vue"),
+        component: () => import("@/views/apps/calendar2.vue"),
         meta: {
           pageTitle: "Calendar",
           breadcrumbs: ["Apps"],
@@ -478,7 +478,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/ecommerce/sales/new-sale",
         name: "new-order",
-        component: () => import("@/components/ecommerce/Add-Order.vue"),
+        component: () => import("@/components/ecommerce/new-order.vue"),
         meta: {
           pageTitle: "Nueva Venta",
           breadcrumbs: ["Ecommerce", "Ventas", "Nueva Orden"],
