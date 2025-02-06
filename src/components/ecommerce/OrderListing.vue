@@ -202,7 +202,7 @@
               <p>Nombre del producto: {{ selectedOrder?.nameProduct }}</p>
               <p>BL: {{ selectedOrder?.bl }}</p>
               <p>Cantidad: {{ selectedOrder?.cantidad }}</p>
-              <p>Estado: {{ selectedOrder?.cantidad }}</p>
+              <p>Estado: {{ selectedOrder?.status }}</p>
               <p>Total: {{ formatCurrency(selectedOrder?.total ?? 0) }}</p>
               <p>Fecha Agregada: {{ selectedOrder?.dateadded }}</p>
               <p>Fecha de Creación: {{ selectedOrder?.createdDate }}</p>

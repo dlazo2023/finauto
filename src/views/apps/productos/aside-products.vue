@@ -5,70 +5,17 @@
         <!--begin::Thumbnail settings-->
         <div class="card card-flush py-4">
     <!-- Card header -->
-    <div class="card-header">
-      <div class="card-title">
-        <h2>Thumbnail</h2>
-      </div>
-    </div>
+    
 
-    <!-- Card body -->
-    <div class="card-body text-center pt-0">
-      <!-- Image input -->
-      <div 
-        class="image-input image-input-outline mb-3"
-        :class="{ 'image-input-empty': !imagePreview }"
-        @dragover.prevent
-        @dragenter.prevent
-        @drop="handleImageDrop"
-      >
-        <!-- Preview -->
-        <div 
-          class="image-input-wrapper w-150px h-150px" 
-          :style="imagePreview ? `background-image: url(${imagePreview})` : ''"
-        ></div>
-
-        <!-- Change Image -->
-        <label 
-          class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-          title="Change avatar"
-          @click="triggerFileInput"
-        >
-          <i class="ki-duotone ki-pencil fs-7"></i>
-          <input 
-            type="file" 
-            class="d-none" 
-            accept="image/png, image/jpg, image/jpeg" 
-            @change="handleImageUpload"
-            ref="imageInput"
-          />
-        </label>
-
-        <!-- Cancel (Restore previous image) -->
-        <span 
-          class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-          title="Cancel avatar"
-          @click="restorePreviousImage"
-        >
-          <i class="ki-duotone ki-cross fs-2"></i>
-        </span>
-
-        <!-- Remove -->
-        <span 
-          class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-          title="Remove avatar"
-          @click="removeImage"
-        >
-          <i class="ki-duotone ki-cross fs-2"></i>
-        </span>
+    <!-- Sección de imagen -->
+    <div class="mb-4 px-4 py-4 col-11 mx-6">
+        <ImageInput 
+          v-model="imageUrl" 
+          :error="errors.image || ''" 
+        />
       </div>
 
-      <!-- Description -->
-      <div class="text-muted fs-7">
-        Set the product thumbnail image. Only *.png, *.jpg, and *.jpeg files are accepted.
-      </div>
-
-      <div v-if="errors.image" class="text-danger mt-2">{{ errors.image }}</div>
-    </div>
+    
   </div>
         <!--end::Thumbnail settings-->
         <!--begin::Status-->
@@ -153,13 +100,16 @@ import { ref, nextTick } from "vue";
 import { useForm } from "vee-validate";
 import * as yup from "yup";
 import { useRouter } from 'vue-router';
+import ImageInput from "@/components/ImageInput.vue";
 
 export default {
+
+  components: {
+      ImageInput,
+    },
   setup() {
-    const imageFile = ref(null);
-    const imagePreview = ref("");
-    const previousImage = ref(""); // Guarda la imagen anterior en caso de cancelar
-    const imageInput = ref(null);
+   
+    const imageUrl = ref("");
     const router = useRouter();
 
     const redirectToRoute=(event)=> {
@@ -167,11 +117,12 @@ export default {
       router.push(selectedValue); 
     }
 
-    const { setErrors, errors } = useForm({
-      validationSchema: yup.object({
-        image: yup.mixed().nullable().required("La imagen es obligatoria"),
-      }),
+    const schema = yup.object({
+      image: yup.string().required("La imagen es obligatoria")
     });
+
+
+    const { errors } = useForm({ validationSchema: schema });
 
     // Subir imagen desde input
     const handleImageUpload = (event) => {
@@ -221,8 +172,6 @@ export default {
     };
 
     return {
-      imagePreview,
-      imageInput,
       handleImageUpload,
       handleImageDrop,
       restorePreviousImage,
@@ -231,42 +180,12 @@ export default {
       errors,
       router,
       redirectToRoute,
+      imageUrl,
     };
   },
 };
 </script>
 
 <style scoped>
-.image-input-placeholder {
-  background-image: url("public/media/svg/files/blank-image.svg") !important;
-}
 
-[data-bs-theme="dark"] .image-input-placeholder {
-  background-image: url("public/media/svg/files/blank-image.svg") !important;
-}
-
-.image-input {
-  position: relative;
-  display: inline-block;
-  border-radius: 10px;
-  border: 2px dashed #ccc;
-  padding: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.image-input:hover {
-  border-color: #007bff;
-  background: rgba(0, 123, 255, 0.1);
-}
-.image-input-wrapper {
-  width: 150px;
-  height: 150px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 10px;
-  background-color: #f8f9fa;
-}
-.image-input-empty .image-input-wrapper {
-  background-image: url("https://via.placeholder.com/150");
-}
 </style>
