@@ -164,7 +164,7 @@ export default defineComponent({
   background-color: #f8f9fa;
 }
 .image-input-empty .image-input-wrapper {
-  background-image: url("https://via.placeholder.com/150");
+  background-image: url("/media/svg/files/blank-image.svg") !important;
 }
 
 /* ✅ Input oculto */
