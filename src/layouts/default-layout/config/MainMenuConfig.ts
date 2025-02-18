@@ -599,12 +599,6 @@ export default function useDynamicMenu() {
             keenthemesIcon: "notepad",
             bootstrapIcon: "bi-calendar3-event",
           },
-          {
-            heading: "Ofertas",
-            route: "/admin/ofertas",
-            keenthemesIcon: "notepad",
-            bootstrapIcon: "bi-calendar3-event",
-          },
 
           {
             heading: "Ofertas",

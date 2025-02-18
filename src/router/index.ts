@@ -41,19 +41,23 @@ const routes: Array<RouteRecordRaw> = [
         children: [
           {
             path: "carro",
-            component: () => import("@/views/apps/productos/crear-carro.vue"),
+            component: () =>
+              import("@/views/comercializacion/productos/crear-carro.vue"),
           },
           {
             path: "piezas",
             component: () =>
-              import("@/views/apps/productos/crear-piezas-garaje.vue"),
+              import(
+                "@/views/comercializacion/productos/crear-piezas-garaje.vue"
+              ),
           },
         ],
       },
       {
         path: "/apps/productos/productlisting",
         name: "apps-productos-productlisting",
-        component: () => import("@/views/apps/productos/ProductList.vue"),
+        component: () =>
+          import("@/views/comercializacion/productos/ProductList.vue"),
         meta: {
           pageTitle: "Lista de Productos",
           breadcrumbs: ["Apps", "Productos"],
@@ -163,7 +167,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/apps/customers/getting-started",
         name: "apps-customers-getting-started",
-        component: () => import("@/views/apps/customers/GettingStarted.vue"),
+        component: () =>
+          import("@/views/comercializacion/customers/GettingStarted.vue"),
         meta: {
           pageTitle: "Getting Started",
           breadcrumbs: ["Apps", "Customers"],
@@ -172,7 +177,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/apps/customers/customers-listing",
         name: "apps-customers-listing",
-        component: () => import("@/views/apps/customers/CustomersListing.vue"),
+        component: () =>
+          import("@/views/comercializacion/customers/CustomersListing.vue"),
         meta: {
           pageTitle: "Customers Listing",
           breadcrumbs: ["Apps", "Customers"],
@@ -181,7 +187,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/apps/customers/customer-details",
         name: "apps-customers-details",
-        component: () => import("@/views/apps/customers/CustomerDetails.vue"),
+        component: () =>
+          import("@/views/comercializacion/customers/CustomerDetails.vue"),
         meta: {
           pageTitle: "Customers Details",
           breadcrumbs: ["Apps", "Customers"],
@@ -425,7 +432,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/report",
         name: "administration-reports",
-        component: () => import("@/views/crafted/admin/report.vue"),
+        component: () => import("@/views/comercializacion/report.vue"),
         meta: {
           pageTitle: "Report",
           breadcrumbs: ["Administration", "Reports"],
@@ -434,7 +441,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/ofertas",
         name: "administration-ofertas",
-        component: () => import("@/views/crafted/admin/report.vue"),
+        component: () => import("@/views/crafted/admin/ofertas/general.vue"),
         meta: {
           pageTitle: "Report",
           breadcrumbs: ["Administration", "Reports"],
