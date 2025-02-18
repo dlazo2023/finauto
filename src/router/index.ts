@@ -34,20 +34,21 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Layout"],
         },
       },
-      
+
       {
-        path: '/apps/productos/addproduct',
-        component: asideLayoutVue, 
+        path: "/apps/productos/addproduct",
+        component: asideLayoutVue,
         children: [
           {
-            path: 'carro',
+            path: "carro",
             component: () => import("@/views/apps/productos/crear-carro.vue"),
           },
           {
-            path: 'piezas',
-            component: () => import("@/views/apps/productos/crear-piezas-garaje.vue"),
-          }
-        ]
+            path: "piezas",
+            component: () =>
+              import("@/views/apps/productos/crear-piezas-garaje.vue"),
+          },
+        ],
       },
       {
         path: "/apps/productos/productlisting",
@@ -84,7 +85,7 @@ const routes: Array<RouteRecordRaw> = [
               pageTitle: "Projects",
             },
           },
-      
+
           {
             path: "documents",
             name: "profile-documents",
@@ -244,7 +245,7 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Apps", "Chat"],
         },
       },*/
-     /* {
+      /* {
         path: "/apps/chat/group-chat",
         name: "apps-group-chat",
         component: () => import("@/views/apps/chat/Chat.vue"),
@@ -431,6 +432,15 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "/admin/ofertas",
+        name: "administration-ofertas",
+        component: () => import("@/views/crafted/admin/report.vue"),
+        meta: {
+          pageTitle: "Report",
+          breadcrumbs: ["Administration", "Reports"],
+        },
+      },
+      {
         path: "/admin/user/users",
         name: "administration-user",
         component: () => import("@/views/crafted/admin/user/UsuarioList.vue"),
@@ -487,7 +497,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/nomencladores/provinces",
         name: "province",
-        component: () => import("@/views/crafted/admin/nomencladores/provinciaList.vue"),
+        component: () =>
+          import("@/views/crafted/admin/nomencladores/provinciaList.vue"),
         meta: {
           pageTitle: "Listado de Provincias",
           breadcrumbs: ["Administracion", "Nomencladores", "Provincias"],
@@ -496,7 +507,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/nomencladores/municipality",
         name: "municipality",
-        component: () => import("@/views/crafted/admin/nomencladores/municipioList.vue"),
+        component: () =>
+          import("@/views/crafted/admin/nomencladores/municipioList.vue"),
         meta: {
           pageTitle: "Listado de Provincias",
           breadcrumbs: ["Administracion", "Nomencladores", "Municipios"],
@@ -505,13 +517,13 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/nomencladores/servicios",
         name: "servicios",
-        component: () => import("@/views/crafted/admin/nomencladores/servicioList.vue"),
+        component: () =>
+          import("@/views/crafted/admin/nomencladores/servicioList.vue"),
         meta: {
           pageTitle: "Listado de Servicios",
           breadcrumbs: ["Administracion", "Nomencladores", "Servicios"],
         },
       },
-
     ],
   },
   {

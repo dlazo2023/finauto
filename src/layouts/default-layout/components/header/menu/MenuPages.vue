@@ -1,5 +1,5 @@
 <template>
-  <template v-for="(item, i) in MainMenuConfig" :key="i">
+  <template v-for="(item, i) in useDynamicMenu" :key="i">
     <template v-if="!item.heading">
       <template v-for="(menuItem, j) in item.pages" :key="j">
         <div v-if="menuItem.heading" class="menu-item me-lg-1">
@@ -305,7 +305,7 @@ import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
-import MainMenuConfig from "@/layouts/default-layout/config/MainMenuConfig";
+import useDynamicMenu from "@/layouts/default-layout/config/MainMenuConfig";
 import { headerMenuIcons } from "@/layouts/default-layout/config/helper";
 
 export default defineComponent({
@@ -314,6 +314,7 @@ export default defineComponent({
   setup() {
     const { t, te } = useI18n();
     const route = useRoute();
+    const { menuItems } = useDynamicMenu();
 
     const hasActiveChildren = (match: string) => {
       return route.path.indexOf(match) !== -1;
@@ -330,9 +331,10 @@ export default defineComponent({
     return {
       hasActiveChildren,
       headerMenuIcons,
-      MainMenuConfig,
+      // MainMenuConfig,
       translate,
       getAssetPath,
+      menuItems,
     };
   },
 });
