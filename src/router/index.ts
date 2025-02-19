@@ -195,238 +195,12 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
-        path: "/apps/subscriptions/getting-started",
-        name: "apps-subscriptions-getting-started",
-        component: () =>
-          import("@/views/apps/subscriptions/GettingStarted.vue"),
-        meta: {
-          pageTitle: "Getting Started",
-          breadcrumbs: ["Apps", "Subscriptions"],
-        },
-      },
-      {
-        path: "/apps/subscriptions/subscription-list",
-        name: "apps-subscriptions-subscription-list",
-        component: () =>
-          import("@/views/apps/subscriptions/SubscriptionList.vue"),
-        meta: {
-          pageTitle: "Getting Started",
-          breadcrumbs: ["Apps", "Subscriptions"],
-        },
-      },
-      {
-        path: "/apps/subscriptions/add-subscription",
-        name: "apps-subscriptions-add-subscription",
-        component: () =>
-          import("@/views/apps/subscriptions/AddSubscription.vue"),
-        meta: {
-          pageTitle: "Add Subscription",
-          breadcrumbs: ["Apps", "Subscriptions"],
-        },
-      },
-      {
-        path: "/apps/subscriptions/view-subscription",
-        name: "apps-subscriptions-view-subscription",
-        component: () =>
-          import("@/views/apps/subscriptions/ViewSubscription.vue"),
-        meta: {
-          pageTitle: "View Subscription",
-          breadcrumbs: ["Apps", "Subscriptions"],
-        },
-      },
-      {
         path: "/apps/calendar",
         name: "apps-calendar",
         component: () => import("@/views/apps/calendar2.vue"),
         meta: {
           pageTitle: "Calendar",
           breadcrumbs: ["Apps"],
-        },
-      },
-      /*{
-        path: "/apps/chat/private-chat",
-        name: "apps-private-chat",
-        component: () => import("@/views/apps/chat/Chat.vue"),
-        meta: {
-          pageTitle: "Private Chat",
-          breadcrumbs: ["Apps", "Chat"],
-        },
-      },*/
-      /* {
-        path: "/apps/chat/group-chat",
-        name: "apps-group-chat",
-        component: () => import("@/views/apps/chat/Chat.vue"),
-        meta: {
-          pageTitle: "Group Chat",
-          breadcrumbs: ["Apps", "Chat"],
-        },
-      },
-      {
-        path: "/apps/chat/drawer-chat",
-        name: "apps-drawer-chat",
-        component: () => import("@/views/apps/chat/DrawerChat.vue"),
-        meta: {
-          pageTitle: "Drawer Chat",
-          breadcrumbs: ["Apps", "Chat"],
-        },
-      },*/
-      {
-        path: "/crafted/modals/general/invite-friends",
-        name: "modals-general-invite-friends",
-        component: () =>
-          import("@/views/crafted/modals/general/InviteFriends.vue"),
-        meta: {
-          pageTitle: "Invite Friends",
-          breadcrumbs: ["Crafted", "Modals", "General"],
-        },
-      },
-      {
-        path: "/crafted/modals/general/view-user",
-        name: "modals-general-view-user",
-        component: () => import("@/views/crafted/modals/general/ViewUsers.vue"),
-        meta: {
-          pageTitle: "View User",
-          breadcrumbs: ["Crafted", "Modals", "General"],
-        },
-      },
-      {
-        path: "/crafted/modals/general/upgrade-plan",
-        name: "modals-general-upgrade-plan",
-        component: () =>
-          import("@/views/crafted/modals/general/UpgradePlan.vue"),
-        meta: {
-          pageTitle: "Upgrade Plan",
-          breadcrumbs: ["Crafted", "Modals", "General"],
-        },
-      },
-      {
-        path: "/crafted/modals/general/share-and-earn",
-        name: "modals-general-share-and-earn",
-        component: () =>
-          import("@/views/crafted/modals/general/ShareAndEarn.vue"),
-        meta: {
-          pageTitle: "Share And Earn",
-          breadcrumbs: ["Crafted", "Modals", "General"],
-        },
-      },
-      {
-        path: "/crafted/modals/forms/new-target",
-        name: "modals-forms-new-target",
-        component: () => import("@/views/crafted/modals/forms/NewTarget.vue"),
-        meta: {
-          pageTitle: "New Target",
-          breadcrumbs: ["Crafted", "Modals", "Forms"],
-        },
-      },
-      {
-        path: "/crafted/modals/forms/new-card",
-        name: "modals-forms-new-card",
-        component: () => import("@/views/crafted/modals/forms/NewCard.vue"),
-        meta: {
-          pageTitle: "New Card",
-          breadcrumbs: ["Crafted", "Modals", "Forms"],
-        },
-      },
-      {
-        path: "/crafted/modals/forms/new-address",
-        name: "modals-forms-new-address",
-        component: () => import("@/views/crafted/modals/forms/NewAddress.vue"),
-        meta: {
-          pageTitle: "New Address",
-          breadcrumbs: ["Crafted", "Modals", "Forms"],
-        },
-      },
-      {
-        path: "/crafted/modals/forms/create-api-key",
-        name: "modals-forms-create-api-key",
-        component: () =>
-          import("@/views/crafted/modals/forms/CreateApiKey.vue"),
-        meta: {
-          pageTitle: "Create Api Key",
-          breadcrumbs: ["Crafted", "Modals", "Forms"],
-        },
-      },
-      {
-        path: "/crafted/modals/wizards/two-factor-auth",
-        name: "modals-wizards-two-factor-auth",
-        component: () =>
-          import("@/views/crafted/modals/wizards/TwoFactorAuth.vue"),
-        meta: {
-          pageTitle: "Two Factory Auth",
-          breadcrumbs: ["Crafted", "Modals", "Wizards"],
-        },
-      },
-      {
-        path: "/crafted/modals/wizards/create-app",
-        name: "modals-wizards-create-app",
-        component: () => import("@/views/crafted/modals/wizards/CreateApp.vue"),
-        meta: {
-          pageTitle: "Create App",
-          breadcrumbs: ["Crafted", "Modals", "Wizards"],
-        },
-      },
-      {
-        path: "/crafted/modals/wizards/create-account",
-        name: "modals-wizards-create-account",
-        component: () =>
-          import("@/views/crafted/modals/wizards/CreateAccount.vue"),
-        meta: {
-          pageTitle: "Create Account",
-          breadcrumbs: ["Crafted", "Modals", "Wizards"],
-        },
-      },
-      {
-        path: "/crafted/widgets/lists",
-        name: "widgets-list",
-        component: () => import("@/views/crafted/widgets/Lists.vue"),
-        meta: {
-          pageTitle: "Lists",
-          breadcrumbs: ["Crafted", "Widgets"],
-        },
-      },
-      {
-        path: "/crafted/widgets/statistics",
-        name: "widgets-statistics",
-        component: () => import("@/views/crafted/widgets/Statistics.vue"),
-        meta: {
-          pageTitle: "Statistics",
-          breadcrumbs: ["Crafted", "Widgets"],
-        },
-      },
-      {
-        path: "/crafted/widgets/charts",
-        name: "widgets-charts",
-        component: () => import("@/views/crafted/widgets/Charts.vue"),
-        meta: {
-          pageTitle: "Charts",
-          breadcrumbs: ["Crafted", "Widgets"],
-        },
-      },
-      {
-        path: "/crafted/widgets/mixed",
-        name: "widgets-mixed",
-        component: () => import("@/views/crafted/widgets/Mixed.vue"),
-        meta: {
-          pageTitle: "Mixed",
-          breadcrumbs: ["Crafted", "Widgets"],
-        },
-      },
-      {
-        path: "/crafted/widgets/tables",
-        name: "widgets-tables",
-        component: () => import("@/views/crafted/widgets/Tables.vue"),
-        meta: {
-          pageTitle: "Tables",
-          breadcrumbs: ["Crafted", "Widgets"],
-        },
-      },
-      {
-        path: "/crafted/widgets/feeds",
-        name: "widgets-feeds",
-        component: () => import("@/views/crafted/widgets/Feeds.vue"),
-        meta: {
-          pageTitle: "Feeds",
-          breadcrumbs: ["Crafted", "Widgets"],
         },
       },
       {
@@ -441,7 +215,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/ofertas",
         name: "administration-ofertas",
-        component: () => import("@/views/crafted/admin/ofertas/general.vue"),
+        component: () =>
+          import("@/views/comercializacion/ofertas/ofertasGeneralList.vue"),
         meta: {
           pageTitle: "Report",
           breadcrumbs: ["Administration", "Reports"],
@@ -450,7 +225,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/user/users",
         name: "administration-user",
-        component: () => import("@/views/crafted/admin/user/UsuarioList.vue"),
+        component: () => import("@/views/administracion/user/UsuarioList.vue"),
         meta: {
           pageTitle: "Usuarios",
           breadcrumbs: ["Administration", "Users"],
@@ -459,7 +234,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/user/roles",
         name: "administration-rol",
-        component: () => import("@/views/crafted/admin/user/Roles.vue"),
+        component: () => import("@/views/administracion/user/Roles.vue"),
         meta: {
           pageTitle: "Roles",
           breadcrumbs: ["Administration", "Roles"],
@@ -505,7 +280,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/admin/nomencladores/provinces",
         name: "province",
         component: () =>
-          import("@/views/crafted/admin/nomencladores/provinciaList.vue"),
+          import("@/views/administracion/nomencladores/provinciaList.vue"),
         meta: {
           pageTitle: "Listado de Provincias",
           breadcrumbs: ["Administracion", "Nomencladores", "Provincias"],
@@ -515,7 +290,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/admin/nomencladores/municipality",
         name: "municipality",
         component: () =>
-          import("@/views/crafted/admin/nomencladores/municipioList.vue"),
+          import("@/views/administracion/nomencladores/municipioList.vue"),
         meta: {
           pageTitle: "Listado de Provincias",
           breadcrumbs: ["Administracion", "Nomencladores", "Municipios"],
@@ -525,7 +300,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/admin/nomencladores/servicios",
         name: "servicios",
         component: () =>
-          import("@/views/crafted/admin/nomencladores/servicioList.vue"),
+          import("@/views/administracion/nomencladores/servicioList.vue"),
         meta: {
           pageTitle: "Listado de Servicios",
           breadcrumbs: ["Administracion", "Nomencladores", "Servicios"],
