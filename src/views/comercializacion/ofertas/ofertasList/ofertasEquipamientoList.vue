@@ -43,70 +43,12 @@
           <button
             type="button"
             class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#crearOfertaModal"
+            @click="router.push('/admin/ofertas/equipamiento/crear')"
           >
             <KTIcon icon-name="plus" icon-class="fs-2" />
             Añadir oferta
           </button>
           <!--end::Add oferta-->
-
-          <!-- Modal -->
-          <div
-            class="modal fade"
-            id="crearOfertaModal"
-            tabindex="-1"
-            aria-labelledby="crearOfertaModalLabel"
-            aria-hidden="true"
-            ref="modalRef"
-          >
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="crearOfertaModalLabel">
-                    Crear oferta
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Cerrar"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <p>Seleccione módulo del que desea crear la oferta</p>
-                  <select
-                    v-model="selectedOption"
-                    class="form-select"
-                    aria-label="Seleccione módulo"
-                  >
-                    <option value="" selected disabled>
-                      Seleccione una opción
-                    </option>
-                    <option value="carro">Carro</option>
-                    <option value="piezas">Piezas</option>
-                    <option value="equipamiento">Equipamiento de garaje</option>
-                  </select>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    @click="redirigir"
-                  >
-                    Ir
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <!--end::Toolbar-->
         <!--begin::Group actions-->
@@ -216,7 +158,7 @@
   </div>
 
   <ExportCustomerModal></ExportCustomerModal>
-  <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal>
+  <!-- <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal> -->
 </template>
 
 <script lang="ts">
@@ -324,20 +266,8 @@ export default defineComponent({
       },
     ]);
     const router = useRouter();
-    const selectedOption = ref("");
-    const modalRef = ref<null | HTMLElement>(null);
-    const selectedIds = ref<Array<number>>([]);
 
-    const redirigir = () => {
-      if (!selectedOption.value) {
-        alert("Por favor seleccione una opción");
-        return;
-      }
-      hideModal(modalRef.value);
-      // Construir la URL basada en la opción seleccionada
-      const url = `/admin/ofertas/${selectedOption.value}/crear`;
-      router.push(url);
-    };
+    const selectedIds = ref<Array<number>>([]);
 
     const tableData = ref<Array<IOferta>>(ofertasEquipamiento.value);
     const initCustomers = ref<Array<IOferta>>([]);
@@ -417,10 +347,8 @@ export default defineComponent({
       getAssetPath,
       selectedOferta,
       editOferta,
-      redirigir,
-      selectedOption,
-      modalRef,
       ofertasEquipamiento,
+      router,
     };
   },
 });

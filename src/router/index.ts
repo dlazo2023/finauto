@@ -218,7 +218,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "/admin/ofertas",
         name: "administration-ofertas",
         component: () =>
-          import("@/views/comercializacion/ofertas/ofertasGeneralList.vue"),
+          import(
+            "@/views/comercializacion/ofertas/ofertasList/ofertasGeneralList.vue"
+          ),
         meta: {
           pageTitle: "Ofertas",
           breadcrumbs: ["Administration", "Ofertas"],
@@ -228,7 +230,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "/admin/ofertas/carro",
         name: "administration-ofertas-carro",
         component: () =>
-          import("@/views/comercializacion/ofertas/ofertasCarroList.vue"),
+          import(
+            "@/views/comercializacion/ofertas/ofertasList/ofertasCarroList.vue"
+          ),
         meta: {
           pageTitle: "Ofertas",
           breadcrumbs: ["Administration", "Ofertas", "Carro"],
@@ -238,7 +242,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "/admin/ofertas/piezas",
         name: "administration-ofertas-piezas",
         component: () =>
-          import("@/views/comercializacion/ofertas/ofertasPiezaList.vue"),
+          import(
+            "@/views/comercializacion/ofertas/ofertasList/ofertasPiezaList.vue"
+          ),
         meta: {
           pageTitle: "Ofertas",
           breadcrumbs: ["Administration", "Ofertas", "Piezas"],
@@ -249,7 +255,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "administration-ofertas-equipamiento",
         component: () =>
           import(
-            "@/views/comercializacion/ofertas/ofertasEquipamientoList.vue"
+            "@/views/comercializacion/ofertas/ofertasList/ofertasEquipamientoList.vue"
           ),
         meta: {
           pageTitle: "Ofertas",
@@ -261,10 +267,37 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/ofertas/carro/crear",
         name: "administration-ofertas-carro-crear",
-        component: () => import("@/views/comercializacion/report.vue"),
+        component: () =>
+          import(
+            "@/views/comercializacion/ofertas/ofertasForm/ofertaCarroCrear.vue"
+          ),
         meta: {
           pageTitle: "Ofertas",
           breadcrumbs: ["Administration", "Ofertas", "Carro"],
+        },
+      },
+      {
+        path: "/admin/ofertas/pieza/crear",
+        name: "administration-ofertas-pieza-crear",
+        component: () =>
+          import(
+            "@/views/comercializacion/ofertas/ofertasForm/ofertaPiezaCrear.vue"
+          ),
+        meta: {
+          pageTitle: "Ofertas",
+          breadcrumbs: ["Administration", "Ofertas", "Pieza"],
+        },
+      },
+      {
+        path: "/admin/ofertas/equipamiento/crear",
+        name: "administration-ofertas-equipamiento-crear",
+        component: () =>
+          import(
+            "@/views/comercializacion/ofertas/ofertasForm/ofertaEquipamientoCrear.vue"
+          ),
+        meta: {
+          pageTitle: "Ofertas",
+          breadcrumbs: ["Administration", "Ofertas", "Equipamiento"],
         },
       },
       {
