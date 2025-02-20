@@ -44,12 +44,69 @@
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#kt_modal_add_oferta"
+            data-bs-target="#crearOfertaModal"
           >
             <KTIcon icon-name="plus" icon-class="fs-2" />
             Añadir oferta
           </button>
           <!--end::Add oferta-->
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="crearOfertaModal"
+            tabindex="-1"
+            aria-labelledby="crearOfertaModalLabel"
+            aria-hidden="true"
+            ref="modalRef"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="crearOfertaModalLabel">
+                    Crear oferta
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Cerrar"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <p>Seleccione módulo del que desea crear la oferta</p>
+                  <select
+                    v-model="selectedOption"
+                    class="form-select"
+                    aria-label="Seleccione módulo"
+                  >
+                    <option value="" selected disabled>
+                      Seleccione una opción
+                    </option>
+                    <option value="carro">Carro</option>
+                    <option value="piezas">Piezas</option>
+                    <option value="equipamiento">Equipamiento de garaje</option>
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click="redirigir"
+                  >
+                    Ir
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <!--end::Toolbar-->
         <!--begin::Group actions-->
@@ -105,12 +162,8 @@
         :checkbox-enabled="true"
         checkbox-label="id"
       >
-        <template v-slot:image="{ row: oferta }">
-          <img
-            :src="oferta.image"
-            :alt="oferta.name"
-            style="width: 50px; height: 50px"
-          />
+        <template v-slot:modulo="{ row: oferta }">
+          {{ oferta.modulo }}
         </template>
         <template v-slot:producto="{ row: oferta }">
           {{ oferta.producto }}
@@ -164,16 +217,15 @@
 
   <ExportCustomerModal></ExportCustomerModal>
   <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal>
-  <AddOfertaModal></AddOfertaModal>
 </template>
 
 <script lang="ts">
+import { useRouter } from "vue-router";
 import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent, onMounted, ref } from "vue";
 import Datatable from "@/components/kt-datatable/KTDataTable.vue";
+import { hideModal } from "@/core/helpers/modal";
 import type { Sort } from "@/components/kt-datatable//table-partials/models";
-import ExportCustomerModal from "@/components/modals/forms/otros/ExportCustomerModal.vue";
-import AddOfertaModal from "@/components/modals/forms/AddOfertaModal.vue";
 import EditOfertaModal from "@/components/modals/forms/EditOfertaModal.vue";
 import type { IOferta } from "@/core/data/ofertas";
 import ofertas from "@/core/data/ofertas";
@@ -184,8 +236,6 @@ export default defineComponent({
   name: "customers-listing",
   components: {
     Datatable,
-    ExportCustomerModal,
-    AddOfertaModal,
     EditOfertaModal,
   },
   setup() {
@@ -221,7 +271,21 @@ export default defineComponent({
         columnWidth: 135,
       },
     ]);
+    const router = useRouter();
+    const selectedOption = ref("");
+    const modalRef = ref<null | HTMLElement>(null);
     const selectedIds = ref<Array<number>>([]);
+
+    const redirigir = () => {
+      if (!selectedOption.value) {
+        alert("Por favor seleccione una opción");
+        return;
+      }
+      hideModal(modalRef.value);
+      // Construir la URL basada en la opción seleccionada
+      const url = `/admin/ofertas/${selectedOption.value}`;
+      router.push(url);
+    };
 
     const tableData = ref<Array<IOferta>>(ofertas);
     const initCustomers = ref<Array<IOferta>>([]);
@@ -301,6 +365,9 @@ export default defineComponent({
       getAssetPath,
       selectedOferta,
       editOferta,
+      redirigir,
+      selectedOption,
+      modalRef,
     };
   },
 });

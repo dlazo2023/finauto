@@ -218,8 +218,17 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import("@/views/comercializacion/ofertas/ofertasGeneralList.vue"),
         meta: {
-          pageTitle: "Report",
-          breadcrumbs: ["Administration", "Reports"],
+          pageTitle: "Ofertas",
+          breadcrumbs: ["Administration", "Ofertas"],
+        },
+      },
+      {
+        path: "/admin/ofertas/carro",
+        name: "administration-ofertas-carro",
+        component: () => import("@/views/comercializacion/report.vue"),
+        meta: {
+          pageTitle: "Ofertas",
+          breadcrumbs: ["Administration", "Ofertas", "Carro"],
         },
       },
       {

@@ -6,6 +6,7 @@ interface IOferta {
   estado: string;
   date_venta: string;
   date_disfrute: string;
+  modulo: string;
 }
 
 const ofertas: Array<IOferta> = [
@@ -17,6 +18,7 @@ const ofertas: Array<IOferta> = [
     estado: "disponible",
     date_venta: "2025-02-15",
     date_disfrute: "2025-03-01",
+    modulo: "Piezas",
   },
   {
     id: Math.floor(Math.random() * 99999) + 1,
@@ -26,6 +28,7 @@ const ofertas: Array<IOferta> = [
     estado: "no disponible",
     date_venta: "2025-01-20",
     date_disfrute: "2025-02-10",
+    modulo: "Carro",
   },
   {
     id: Math.floor(Math.random() * 99999) + 1,
@@ -35,6 +38,7 @@ const ofertas: Array<IOferta> = [
     estado: "disponible",
     date_venta: "2025-02-10",
     date_disfrute: "2025-02-25",
+    modulo: "Equipamiento de garaje",
   },
   {
     id: Math.floor(Math.random() * 99999) + 1,
@@ -44,6 +48,7 @@ const ofertas: Array<IOferta> = [
     estado: "disponible",
     date_venta: "2025-01-05",
     date_disfrute: "2025-01-25",
+    modulo: "Carro",
   },
 ];
 
