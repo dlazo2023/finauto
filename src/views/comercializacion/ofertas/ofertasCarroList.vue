@@ -215,8 +215,8 @@
     </div>
   </div>
 
-  <!-- <ExportCustomerModal></ExportCustomerModal> -->
-  <!-- <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal> -->
+  <ExportCustomerModal></ExportCustomerModal>
+  <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal>
 </template>
 
 <script lang="ts">
@@ -226,9 +226,9 @@ import { defineComponent, onMounted, ref } from "vue";
 import Datatable from "@/components/kt-datatable/KTDataTable.vue";
 import { hideModal } from "@/core/helpers/modal";
 import type { Sort } from "@/components/kt-datatable//table-partials/models";
-// import EditOfertaModal from "@/components/modals/forms/EditOfertaModal.vue";
+import EditOfertaModal from "@/components/modals/forms/EditOfertaModal.vue";
 import type { IOferta } from "@/core/data/ofertas";
-import ofertas from "@/core/data/ofertas";
+
 import arraySort from "array-sort";
 import { MenuComponent } from "@/assets/ts/components";
 
@@ -236,7 +236,7 @@ export default defineComponent({
   name: "customers-listing",
   components: {
     Datatable,
-    // EditOfertaModal,
+    EditOfertaModal,
   },
   setup() {
     const tableHeader = ref([
@@ -271,6 +271,58 @@ export default defineComponent({
         columnWidth: 135,
       },
     ]);
+    const ofertasCarro = ref([
+      {
+        id: 1,
+        nombre: "Descuento en Toyota Corolla 2022",
+        codigo: "CAR-001",
+        producto: "Toyota Corolla 2022",
+        estado: "disponible",
+        date_venta: "2025-02-10",
+        date_disfrute: "2025-03-01",
+        modulo: "Carro",
+      },
+      {
+        id: 2,
+        nombre: "Promoción Honda Civic 2021",
+        codigo: "CAR-002",
+        producto: "Honda Civic 2021",
+        estado: "no disponible",
+        date_venta: "2025-01-20",
+        date_disfrute: "2025-02-15",
+        modulo: "Carro",
+      },
+      {
+        id: 3,
+        nombre: "Oferta Ford Ranger 2023",
+        codigo: "CAR-003",
+        producto: "Ford Ranger 2023",
+        estado: "disponible",
+        date_venta: "2025-01-05",
+        date_disfrute: "2025-01-25",
+        modulo: "Carro",
+      },
+      {
+        id: 4,
+        nombre: "Descuento Mazda CX-5 2024",
+        codigo: "CAR-004",
+        producto: "Mazda CX-5 2024",
+        estado: "no disponible",
+        date_venta: "2024-12-15",
+        date_disfrute: "2025-01-10",
+        modulo: "Carro",
+      },
+      {
+        id: 5,
+        nombre: "Promoción Kia Sportage 2023",
+        codigo: "CAR-005",
+        producto: "Kia Sportage 2023",
+        estado: "disponible",
+        date_venta: "2025-02-01",
+        date_disfrute: "2025-02-20",
+        modulo: "Carro",
+      },
+    ]);
     const router = useRouter();
     const selectedOption = ref("");
     const modalRef = ref<null | HTMLElement>(null);
@@ -287,7 +339,7 @@ export default defineComponent({
       router.push(url);
     };
 
-    const tableData = ref<Array<IOferta>>(ofertas);
+    const tableData = ref<Array<IOferta>>(ofertasCarro.value);
     const initCustomers = ref<Array<IOferta>>([]);
 
     onMounted(() => {
@@ -368,6 +420,7 @@ export default defineComponent({
       redirigir,
       selectedOption,
       modalRef,
+      ofertasCarro,
     };
   },
 });

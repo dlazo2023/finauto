@@ -215,8 +215,8 @@
     </div>
   </div>
 
-  <!-- <ExportCustomerModal></ExportCustomerModal> -->
-  <!-- <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal> -->
+  <ExportCustomerModal></ExportCustomerModal>
+  <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal>
 </template>
 
 <script lang="ts">
@@ -226,9 +226,9 @@ import { defineComponent, onMounted, ref } from "vue";
 import Datatable from "@/components/kt-datatable/KTDataTable.vue";
 import { hideModal } from "@/core/helpers/modal";
 import type { Sort } from "@/components/kt-datatable//table-partials/models";
-// import EditOfertaModal from "@/components/modals/forms/EditOfertaModal.vue";
+import EditOfertaModal from "@/components/modals/forms/EditOfertaModal.vue";
 import type { IOferta } from "@/core/data/ofertas";
-import ofertas from "@/core/data/ofertas";
+
 import arraySort from "array-sort";
 import { MenuComponent } from "@/assets/ts/components";
 
@@ -236,7 +236,7 @@ export default defineComponent({
   name: "customers-listing",
   components: {
     Datatable,
-    // EditOfertaModal,
+    EditOfertaModal,
   },
   setup() {
     const tableHeader = ref([
@@ -271,6 +271,58 @@ export default defineComponent({
         columnWidth: 135,
       },
     ]);
+    const ofertasEquipamiento = ref([
+      {
+        id: 11,
+        nombre: "Promoción Rampa Hidráulica",
+        codigo: "EQU-001",
+        producto: "Rampa Hidráulica para Garaje",
+        estado: "disponible",
+        date_venta: "2025-01-30",
+        date_disfrute: "2025-02-15",
+        modulo: "Equipamiento de garaje",
+      },
+      {
+        id: 12,
+        nombre: "Descuento Kit de Herramientas",
+        codigo: "EQU-002",
+        producto: "Kit de Herramientas de Garaje",
+        estado: "no disponible",
+        date_venta: "2024-12-10",
+        date_disfrute: "2025-01-02",
+        modulo: "Equipamiento de garaje",
+      },
+      {
+        id: 13,
+        nombre: "Oferta Compresor de Aire",
+        codigo: "EQU-003",
+        producto: "Compresor de Aire Portátil",
+        estado: "disponible",
+        date_venta: "2025-02-05",
+        date_disfrute: "2025-02-25",
+        modulo: "Equipamiento de garaje",
+      },
+      {
+        id: 14,
+        nombre: "Promoción Elevador de Autos",
+        codigo: "EQU-004",
+        producto: "Elevador Hidráulico de 2 Columnas",
+        estado: "disponible",
+        date_venta: "2025-01-15",
+        date_disfrute: "2025-01-30",
+        modulo: "Equipamiento de garaje",
+      },
+      {
+        id: 15,
+        nombre: "Descuento Caja de Herramientas",
+        codigo: "EQU-005",
+        producto: "Caja de Herramientas Stanley",
+        estado: "no disponible",
+        date_venta: "2024-11-25",
+        date_disfrute: "2024-12-10",
+        modulo: "Equipamiento de garaje",
+      },
+    ]);
     const router = useRouter();
     const selectedOption = ref("");
     const modalRef = ref<null | HTMLElement>(null);
@@ -287,7 +339,7 @@ export default defineComponent({
       router.push(url);
     };
 
-    const tableData = ref<Array<IOferta>>(ofertas);
+    const tableData = ref<Array<IOferta>>(ofertasEquipamiento.value);
     const initCustomers = ref<Array<IOferta>>([]);
 
     onMounted(() => {
@@ -368,6 +420,7 @@ export default defineComponent({
       redirigir,
       selectedOption,
       modalRef,
+      ofertasEquipamiento,
     };
   },
 });

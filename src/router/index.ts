@@ -212,6 +212,8 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Administration", "Reports"],
         },
       },
+
+      // LISTAS DE OFERTAS POR MÓDULOS
       {
         path: "/admin/ofertas",
         name: "administration-ofertas",
@@ -225,6 +227,40 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/admin/ofertas/carro",
         name: "administration-ofertas-carro",
+        component: () =>
+          import("@/views/comercializacion/ofertas/ofertasCarroList.vue"),
+        meta: {
+          pageTitle: "Ofertas",
+          breadcrumbs: ["Administration", "Ofertas", "Carro"],
+        },
+      },
+      {
+        path: "/admin/ofertas/piezas",
+        name: "administration-ofertas-piezas",
+        component: () =>
+          import("@/views/comercializacion/ofertas/ofertasPiezaList.vue"),
+        meta: {
+          pageTitle: "Ofertas",
+          breadcrumbs: ["Administration", "Ofertas", "Piezas"],
+        },
+      },
+      {
+        path: "/admin/ofertas/equipamiento",
+        name: "administration-ofertas-equipamiento",
+        component: () =>
+          import(
+            "@/views/comercializacion/ofertas/ofertasEquipamientoList.vue"
+          ),
+        meta: {
+          pageTitle: "Ofertas",
+          breadcrumbs: ["Administration", "Ofertas", "Equipamiento"],
+        },
+      },
+
+      // CREAR OFERTAS POR MÓDULOS
+      {
+        path: "/admin/ofertas/carro/crear",
+        name: "administration-ofertas-carro-crear",
         component: () => import("@/views/comercializacion/report.vue"),
         meta: {
           pageTitle: "Ofertas",

@@ -215,8 +215,8 @@
     </div>
   </div>
 
-  <!-- <ExportCustomerModal></ExportCustomerModal> -->
-  <!-- <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal> -->
+  <ExportCustomerModal></ExportCustomerModal>
+  <EditOfertaModal :oferta="selectedOferta"></EditOfertaModal>
 </template>
 
 <script lang="ts">
@@ -226,9 +226,9 @@ import { defineComponent, onMounted, ref } from "vue";
 import Datatable from "@/components/kt-datatable/KTDataTable.vue";
 import { hideModal } from "@/core/helpers/modal";
 import type { Sort } from "@/components/kt-datatable//table-partials/models";
-// import EditOfertaModal from "@/components/modals/forms/EditOfertaModal.vue";
+import EditOfertaModal from "@/components/modals/forms/EditOfertaModal.vue";
 import type { IOferta } from "@/core/data/ofertas";
-import ofertas from "@/core/data/ofertas";
+
 import arraySort from "array-sort";
 import { MenuComponent } from "@/assets/ts/components";
 
@@ -236,7 +236,7 @@ export default defineComponent({
   name: "customers-listing",
   components: {
     Datatable,
-    // EditOfertaModal,
+    EditOfertaModal,
   },
   setup() {
     const tableHeader = ref([
@@ -271,6 +271,58 @@ export default defineComponent({
         columnWidth: 135,
       },
     ]);
+    const ofertasPieza = ref([
+      {
+        id: 6,
+        nombre: "Oferta Filtro de Aceite Premium",
+        codigo: "PIE-001",
+        producto: "Filtro de Aceite Bosch",
+        estado: "disponible",
+        date_venta: "2025-02-12",
+        date_disfrute: "2025-02-28",
+        modulo: "Piezas",
+      },
+      {
+        id: 7,
+        nombre: "Descuento Pastillas de Freno",
+        codigo: "PIE-002",
+        producto: "Pastillas de Freno Brembo",
+        estado: "no disponible",
+        date_venta: "2025-01-10",
+        date_disfrute: "2025-01-30",
+        modulo: "Piezas",
+      },
+      {
+        id: 8,
+        nombre: "Promoción Juego de Neumáticos",
+        codigo: "PIE-003",
+        producto: "Juego de Neumáticos Michelin",
+        estado: "disponible",
+        date_venta: "2025-02-05",
+        date_disfrute: "2025-02-22",
+        modulo: "Piezas",
+      },
+      {
+        id: 9,
+        nombre: "Oferta Batería para Autos",
+        codigo: "PIE-004",
+        producto: "Batería Bosch S5",
+        estado: "disponible",
+        date_venta: "2025-01-25",
+        date_disfrute: "2025-02-10",
+        modulo: "Piezas",
+      },
+      {
+        id: 10,
+        nombre: "Descuento Amortiguadores",
+        codigo: "PIE-005",
+        producto: "Amortiguadores Monroe",
+        estado: "no disponible",
+        date_venta: "2024-12-20",
+        date_disfrute: "2025-01-05",
+        modulo: "Piezas",
+      },
+    ]);
     const router = useRouter();
     const selectedOption = ref("");
     const modalRef = ref<null | HTMLElement>(null);
@@ -287,7 +339,7 @@ export default defineComponent({
       router.push(url);
     };
 
-    const tableData = ref<Array<IOferta>>(ofertas);
+    const tableData = ref<Array<IOferta>>(ofertasPieza.value);
     const initCustomers = ref<Array<IOferta>>([]);
 
     onMounted(() => {
@@ -368,6 +420,7 @@ export default defineComponent({
       redirigir,
       selectedOption,
       modalRef,
+      ofertasPieza,
     };
   },
 });

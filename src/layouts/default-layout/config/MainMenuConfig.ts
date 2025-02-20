@@ -123,7 +123,7 @@ export default function useDynamicMenu() {
             },
             {
               heading: "Ofertas",
-              route: "/admin/ofertas",
+              route: "/admin/ofertas/carro",
               keenthemesIcon: "notepad",
               bootstrapIcon: "bi-calendar3-event",
             },
@@ -269,7 +269,7 @@ export default function useDynamicMenu() {
 
             {
               heading: "Ofertas",
-              route: "/admin/ofertas",
+              route: "/admin/ofertas/piezas",
               keenthemesIcon: "notepad",
               bootstrapIcon: "bi-calendar3-event",
             },
@@ -415,7 +415,7 @@ export default function useDynamicMenu() {
 
             {
               heading: "Ofertas",
-              route: "/admin/ofertas",
+              route: "/admin/ofertas/equipamiento",
               keenthemesIcon: "notepad",
               bootstrapIcon: "bi-calendar3-event",
             },
