@@ -1,126 +1,125 @@
 interface IProducts {
-    id: number;
-    nombredelproducto: string;
-    descripion: string;
-    categoria: string;
-    módulo: string;
-    nombre: string;
-    apellidos: string;
-    correo: string;
-    teléfono: string;
+  id: number;
+  nombredelproducto: string;
+  descripion: string;
+  módulo: string;
+  nombre: string;
+  apellidos: string;
+  correo: string;
+  teléfono: string;
 }
 
-const productos : Array<IProducts> = [
-    {
-        id: 1,
-        nombredelproducto: "Hotel San Quintín",
-        descripion: "Gran hotel de 5 estrellas, confort y más",
-        categoria: "hoteles",
-        módulo: "terrestre",
-        nombre: "Pedro",
-        apellidos: "Sánchez",
-        correo: "pedro.sanchez@example.com",
-        teléfono: "555-1122",
-    },
-    {
-        id: 2,
-        nombredelproducto: "Hotel Playa Dorada",
-        descripion: "Hotel frente al mar con vista al océano",
-        categoria: "hoteles",
-        módulo: "terrestre",
-        nombre: "María",
-        apellidos: "Gómez",
-        correo: "maria.gomez@example.com",
-        teléfono: "555-3344",
-    },
-    {
-        id: 3,
-        nombredelproducto: "Tour por la Selva",
-        descripion: "Aventura en la selva con guía experto",
-        categoria: "experiencias",
-        módulo: "terrestre",
-        nombre: "Carlos",
-        apellidos: "López",
-        correo: "carlos.lopez@example.com",
-        teléfono: "555-5566",
-    },
-    {
-        id: 4,
-        nombredelproducto: "Buceo en el Caribe",
-        descripion: "Exploración de arrecifes de coral",
-        categoria: "experiencias",
-        módulo: "marítima",
-        nombre: "Ana",
-        apellidos: "Martínez",
-        correo: "ana.martinez@example.com",
-        teléfono: "555-7788",
-    },
-    {
-        id: 5,
-        nombredelproducto: "Transfer Aeropuerto-Hotel",
-        descripion: "Servicio de traslado privado",
-        categoria: "transfer",
-        módulo: "terrestre",
-        nombre: "Luis",
-        apellidos: "Rodríguez",
-        correo: "luis.rodriguez@example.com",
-        teléfono: "555-9900",
-    },
-    {
-        id: 6,
-        nombredelproducto: "Transfer Puerto-Ciudad",
-        descripion: "Traslado desde el puerto al centro de la ciudad",
-        categoria: "transfer",
-        módulo: "marítima",
-        nombre: "Sofía",
-        apellidos: "Hernández",
-        correo: "sofia.hernandez@example.com",
-        teléfono: "555-2233",
-    },
-    {
-        id: 7,
-        nombredelproducto: "Tienda de Souvenirs",
-        descripion: "Productos artesanales y recuerdos",
-        categoria: "tiendas",
-        módulo: "terrestre",
-        nombre: "Elena",
-        apellidos: "García",
-        correo: "elena.garcia@example.com",
-        teléfono: "555-4455",
-    },
-    {
-        id: 8,
-        nombredelproducto: "Tienda Duty-Free",
-        descripion: "Productos libres de impuestos en el aeropuerto",
-        categoria: "tiendas",
-        módulo: "aérea",
-        nombre: "Jorge",
-        apellidos: "Ruiz",
-        correo: "jorge.ruiz@example.com",
-        teléfono: "555-6677",
-    },
-    {
-        id: 9,
-        nombredelproducto: "Hotel Montaña Azul",
-        descripion: "Hotel en la montaña con spa y sauna",
-        categoria: "hoteles",
-        módulo: "terrestre",
-        nombre: "Carmen",
-        apellidos: "Vega",
-        correo: "carmen.vega@example.com",
-        teléfono: "555-8899",
-    },
-    {
-        id: 10,
-        nombredelproducto: "Vuelo en Globo",
-        descripion: "Experiencia única sobrevolando el valle",
-        categoria: "experiencias",
-        módulo: "aérea",
-        nombre: "Isabel",
-        apellidos: "Morales",
-        correo: "isabel.morales@example.com",
-        teléfono: "555-1122",
-    },
+const productos: Array<IProducts> = [
+  {
+    id: 1,
+    nombredelproducto: "Toyota Corolla 2022",
+    descripion:
+      "Sedán compacto con excelente eficiencia de combustible y tecnología avanzada.",
+    módulo: "carro",
+    nombre: "Carlos",
+    apellidos: "González",
+    correo: "carlos.gonzalez@example.com",
+    teléfono: "+34 612 345 678",
+  },
+  {
+    id: 2,
+    nombredelproducto: "Filtro de Aceite Bosch",
+    descripion:
+      "Filtro de aceite de alto rendimiento que prolonga la vida del motor.",
+    módulo: "piezas",
+    nombre: "Laura",
+    apellidos: "Martínez",
+    correo: "laura.martinez@example.com",
+    teléfono: "+34 623 456 789",
+  },
+  {
+    id: 3,
+    nombredelproducto: "Compresor de Aire Portátil",
+    descripion:
+      "Ideal para inflar neumáticos y realizar tareas de mantenimiento en el garaje.",
+    módulo: "equipamiento de garaje",
+    nombre: "José",
+    apellidos: "Fernández",
+    correo: "jose.fernandez@example.com",
+    teléfono: "+34 634 567 890",
+  },
+  {
+    id: 4,
+    nombredelproducto: "Pastillas de Freno Brembo",
+    descripion:
+      "Pastillas de freno de alto rendimiento para una frenada segura y eficaz.",
+    módulo: "piezas",
+    nombre: "Ana",
+    apellidos: "López",
+    correo: "ana.lopez@example.com",
+    teléfono: "+34 645 678 901",
+  },
+  {
+    id: 5,
+    nombredelproducto: "Elevador Hidráulico de 2 Columnas",
+    descripion:
+      "Equipo profesional para elevar vehículos y facilitar reparaciones.",
+    módulo: "equipamiento de garaje",
+    nombre: "Miguel",
+    apellidos: "Ramírez",
+    correo: "miguel.ramirez@example.com",
+    teléfono: "+34 656 789 012",
+  },
+  {
+    id: 6,
+    nombredelproducto: "Mazda CX-5 2024",
+    descripion:
+      "SUV compacto con tecnología avanzada y diseño elegante para toda la familia.",
+    módulo: "carro",
+    nombre: "Sofía",
+    apellidos: "Hernández",
+    correo: "sofia.hernandez@example.com",
+    teléfono: "+34 667 890 123",
+  },
+  {
+    id: 7,
+    nombredelproducto: "Amortiguadores Monroe",
+    descripion:
+      "Amortiguadores de alta calidad para una conducción cómoda y segura.",
+    módulo: "piezas",
+    nombre: "Daniel",
+    apellidos: "Ruiz",
+    correo: "daniel.ruiz@example.com",
+    teléfono: "+34 678 901 234",
+  },
+  {
+    id: 8,
+    nombredelproducto: "Rampa Hidráulica para Garaje",
+    descripion:
+      "Facilita la elevación de vehículos para mantenimiento y reparación.",
+    módulo: "equipamiento de garaje",
+    nombre: "Isabel",
+    apellidos: "Moreno",
+    correo: "isabel.moreno@example.com",
+    teléfono: "+34 689 012 345",
+  },
+  {
+    id: 9,
+    nombredelproducto: "Juego de Neumáticos Michelin",
+    descripion:
+      "Neumáticos duraderos que ofrecen un excelente agarre y seguridad.",
+    módulo: "piezas",
+    nombre: "Pedro",
+    apellidos: "Vega",
+    correo: "pedro.vega@example.com",
+    teléfono: "+34 690 123 456",
+  },
+  {
+    id: 10,
+    nombredelproducto: "Caja de Herramientas Stanley",
+    descripion:
+      "Conjunto completo de herramientas para trabajos de mantenimiento y reparación.",
+    módulo: "equipamiento de garaje",
+    nombre: "Lucía",
+    apellidos: "Castro",
+    correo: "lucia.castro@example.com",
+    teléfono: "+34 601 234 567",
+  },
 ];
 
 export type { IProducts };

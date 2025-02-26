@@ -666,6 +666,10 @@ export default function useDynamicMenu() {
                 route: "/admin/nomencladores/servicios",
               },
               {
+                heading: "Marcas",
+                route: "/admin/nomencladores/marcas",
+              },
+              {
                 heading: "Importadoras",
                 route: "/admin/nomencladores/importadoras",
               },

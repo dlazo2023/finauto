@@ -384,6 +384,16 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Administracion", "Nomencladores", "Servicios"],
         },
       },
+      {
+        path: "/admin/nomencladores/marcas",
+        name: "marcas",
+        component: () =>
+          import("@/views/administracion/nomencladores/marcaList.vue"),
+        meta: {
+          pageTitle: "Listado de Marcas",
+          breadcrumbs: ["Administracion", "Nomencladores", "Marcas"],
+        },
+      },
     ],
   },
   {

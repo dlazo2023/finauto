@@ -84,7 +84,7 @@
                       Seleccione una opción
                     </option>
                     <option value="carro">Carro</option>
-                    <option value="piezas">Piezas</option>
+                    <option value="pieza">Piezas</option>
                     <option value="equipamiento">Equipamiento de garaje</option>
                   </select>
                 </div>
