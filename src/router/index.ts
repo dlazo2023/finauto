@@ -262,6 +262,7 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Administration", "Ofertas", "Equipamiento"],
         },
       },
+      // END LISTAS DE OFERTAS POR MÓDULOS
 
       // CREAR OFERTAS POR MÓDULOS
       {
@@ -300,6 +301,18 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Administration", "Ofertas", "Equipamiento"],
         },
       },
+      // END CREAR OFERTAS POR MÓDULOS
+
+      {
+        path: "/configuracion/metodos-de-pago",
+        name: "configuracion-metodos-de-pago",
+        component: () => import("@/views/configuracion/metodosList.vue"),
+        meta: {
+          pageTitle: "Metodos de pago",
+          breadcrumbs: ["Configuracion", "Metodos de pago"],
+        },
+      },
+
       {
         path: "/admin/user/users",
         name: "administration-user",

@@ -693,11 +693,11 @@ export default function useDynamicMenu() {
         pages: [
           {
             heading: "Metodos de pago",
-            route: "/admin/nomencladores/metodos-de-pago",
+            route: "/configuracion/metodos-de-pago",
           },
           {
             heading: "Cuentas bancarias",
-            route: "/admin/nomencladores/cuentas-bancarias",
+            route: "/configuracion/cuentas-bancarias",
           },
         ],
       },
