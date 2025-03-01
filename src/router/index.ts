@@ -312,7 +312,15 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Configuracion", "Metodos de pago"],
         },
       },
-
+      {
+        path: "/configuracion/tarjetas-credito",
+        name: "configuracion-tarjetas-credito",
+        component: () => import("@/views/configuracion/tarjetasList.vue"),
+        meta: {
+          pageTitle: "Tarjetas de credito",
+          breadcrumbs: ["Configuracion", "Tarjetas de credito"],
+        },
+      },
       {
         path: "/admin/user/users",
         name: "administration-user",

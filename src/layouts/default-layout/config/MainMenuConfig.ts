@@ -696,6 +696,10 @@ export default function useDynamicMenu() {
             route: "/configuracion/metodos-de-pago",
           },
           {
+            heading: "Tarjetas de credito",
+            route: "/configuracion/tarjetas-credito",
+          },
+          {
             heading: "Cuentas bancarias",
             route: "/configuracion/cuentas-bancarias",
           },

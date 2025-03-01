@@ -1,8 +1,8 @@
 <template>
   <div
     class="modal fade"
-    id="kt_modal_edit_metodo"
-    ref="editMetodoModalRef"
+    id="kt_modal_edit_tarjeta"
+    ref="editTarjetaModalRef"
     tabindex="-1"
     aria-hidden="true"
   >
@@ -13,7 +13,7 @@
         <!--begin::Modal header-->
         <div class="modal-header" id="kt_modal_edit_provincia_header">
           <!--begin::Modal title-->
-          <h2 class="fw-bold">Editar Metodo</h2>
+          <h2 class="fw-bold">Editar Tarjeta</h2>
           <!--end::Modal title-->
 
           <!--begin::Close-->
@@ -43,18 +43,32 @@
               />
             </div>
 
-            <!-- Campo: Nombre del metodo -->
+            <!-- Campo: Nombre del tarjeta -->
             <div class="mb-4 px-4 py-4 col-11 mx-6">
-              <label class="required form-label">Nombre del metodo</label>
+              <label class="required form-label">Nombre del tarjeta</label>
               <Field
                 name="nombre"
                 v-model="formData.nombre"
                 as="input"
                 type="text"
                 class="form-control"
-                placeholder="Ponga el nombre del metodo"
+                placeholder="Ponga el nombre del tarjeta"
               />
               <ErrorMessage name="nombre" class="text-danger" />
+            </div>
+
+            <!-- Campo: Código del tarjeta -->
+            <div class="mb-4 px-4 py-4 col-11 mx-6">
+              <label class="required form-label">Código</label>
+              <Field
+                name="codigo"
+                v-model="formData.codigo"
+                as="input"
+                type="text"
+                class="form-control"
+                placeholder="Pon el codigo"
+              />
+              <ErrorMessage name="codigo" class="text-danger" />
             </div>
 
             <!-- Campo: Descripción -->
@@ -92,12 +106,11 @@ import { defineComponent, ref, watch } from "vue";
 import * as yup from "yup";
 import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 import { hideModal } from "@/core/helpers/modal";
-import { useMetodoStore } from "@/stores/metodos";
-
+import { useTarjetaStore } from "@/stores/tarjetas";
 import ImageInput from "@/components/ImageInput.vue";
 
 export default defineComponent({
-  name: "AddMetodo",
+  name: "AddTarjeta",
   components: {
     Form,
     Field,
@@ -105,7 +118,7 @@ export default defineComponent({
     ImageInput,
   },
   props: {
-    metodo: {
+    tarjeta: {
       type: Object,
       required: true,
     },
@@ -116,24 +129,26 @@ export default defineComponent({
     const formData = ref({
       image: "",
       nombre: "",
+      codigo: "",
       descripcion: "",
     });
 
     watch(
-      () => props.metodo,
-      (MetodoToEdit) => {
-        if (MetodoToEdit) {
-          idEdit.value = MetodoToEdit.id;
-          formData.value.image = MetodoToEdit.image || "";
-          formData.value.nombre = MetodoToEdit.nombre || "";
-          formData.value.descripcion = MetodoToEdit.descripcion || "";
+      () => props.tarjeta,
+      (TarjetaToEdit) => {
+        if (TarjetaToEdit) {
+          idEdit.value = TarjetaToEdit.id;
+          formData.value.image = TarjetaToEdit.image || "";
+          formData.value.nombre = TarjetaToEdit.nombre || "";
+          formData.value.codigo = TarjetaToEdit.codigo || "";
+          formData.value.descripcion = TarjetaToEdit.descripcion || "";
         }
       },
       { immediate: true },
     );
-    const metodoStore = useMetodoStore();
+    const tarjetaStore = useTarjetaStore();
     const formRef = ref<null | HTMLFormElement>(null);
-    const editMetodoModalRef = ref<null | HTMLElement>(null);
+    const editTarjetaModalRef = ref<null | HTMLElement>(null);
     const schema = yup.object({
       nombre: yup.string().required("El nombre es obligatorio"),
       descripcion: yup.string().required("La descripción es obligatoria"),
@@ -158,9 +173,9 @@ export default defineComponent({
         image: formData.value.image,
       };
 
-      metodoStore.updateMetodo(editService.id);
-      console.log("Metodo agregado:", editService);
-      hideModal(editMetodoModalRef.value);
+      tarjetaStore.updateTarjeta(editService.id);
+      console.log("Tarjeta agregado:", editService);
+      hideModal(editTarjetaModalRef.value);
       resetForm();
       imageUrl.value = "";
     };
@@ -169,7 +184,7 @@ export default defineComponent({
       schema,
       handleSubmit,
       formRef,
-      editMetodoModalRef,
+      editTarjetaModalRef,
       imageUrl,
       errors,
       formData,

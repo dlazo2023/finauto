@@ -1,24 +1,23 @@
 <template>
   <div
     class="modal fade"
-    id="kt_modal_edit_metodo"
-    ref="editMetodoModalRef"
+    id="kt_modal_add_tarjeta"
+    ref="addTarjetaModalRef"
     tabindex="-1"
     aria-hidden="true"
   >
-    <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-650px miModal">
       <!--begin::Modal content-->
       <div class="modal-content">
         <!--begin::Modal header-->
-        <div class="modal-header" id="kt_modal_edit_provincia_header">
+        <div class="modal-header" id="kt_modal_add_provincia_header">
           <!--begin::Modal title-->
-          <h2 class="fw-bold">Editar Metodo</h2>
+          <h2 class="fw-bold">Añadir un Método de pago</h2>
           <!--end::Modal title-->
 
           <!--begin::Close-->
           <div
-            id="kt_modal_edit_provincia_close"
+            id="kt_modal_add_provincia_close"
             data-bs-dismiss="modal"
             class="btn btn-icon btn-sm btn-active-icon-primary"
           >
@@ -26,8 +25,7 @@
           </div>
           <!--end::Close-->
         </div>
-        <!--end::Modal header-->
-        <!--begin::Form-->
+
         <Form
           @submit="handleSubmit"
           :validation-schema="schema"
@@ -37,24 +35,53 @@
           <div class="card shadow-sm">
             <!-- Sección de imagen -->
             <div class="mb-4 px-4 py-4 col-11 mx-6">
-              <ImageInput
-                v-model="formData.image"
-                :error="errors.image || ''"
-              />
+              <ImageInput v-model="imageUrl" :error="errors.image || ''" />
             </div>
 
-            <!-- Campo: Nombre del metodo -->
+            <!-- Campo: Nombre del tarjeta -->
             <div class="mb-4 px-4 py-4 col-11 mx-6">
-              <label class="required form-label">Nombre del metodo</label>
+              <label class="required form-label">Nombre del tarjeta</label>
               <Field
                 name="nombre"
-                v-model="formData.nombre"
                 as="input"
                 type="text"
                 class="form-control"
-                placeholder="Ponga el nombre del metodo"
+                placeholder="Ponga el nombre del tarjeta"
               />
               <ErrorMessage name="nombre" class="text-danger" />
+            </div>
+
+            <!-- Campo: Código del tarjeta -->
+            <div class="mb-4 px-4 py-4 col-11 mx-6">
+              <label class="required form-label">Código</label>
+              <Field
+                name="codigo"
+                as="input"
+                type="text"
+                class="form-control"
+                placeholder="Pon el codigo"
+              />
+              <ErrorMessage name="codigo" class="text-danger" />
+            </div>
+
+            <!-- Campo: Método de pago  -->
+            <div class="mb-4 px-4 py-4 col-11 mx-6">
+              <label class="required form-label">Método de pago</label>
+              <Field
+                name="metodo"
+                as="select"
+                v-model="selectedOption"
+                class="form-select"
+                aria-label="Seleccione metodo"
+              >
+                <option value="" selected disabled>
+                  Seleccione una opción
+                </option>
+                <option value="met1">Metodo 1</option>
+                <option value="met2">Metodo 2</option>
+              </Field>
+
+              <ErrorMessage name="metodo" class="text-danger" />
             </div>
 
             <!-- Campo: Descripción -->
@@ -62,7 +89,6 @@
               <label class="required form-label">Descripción</label>
               <Field
                 name="descripcion"
-                v-model="formData.descripcion"
                 as="textarea"
                 class="form-control"
                 placeholder="Ponga la descripción"
@@ -77,65 +103,40 @@
               >Cancelar</a
             >
             <button type="submit" class="btn btn-bg-primary mx-3">
-              Actualizar
+              Guardar
             </button>
           </div>
         </Form>
-        <!--end::Form-->
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref } from "vue";
 import * as yup from "yup";
 import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 import { hideModal } from "@/core/helpers/modal";
-import { useMetodoStore } from "@/stores/metodos";
-
+import { useTarjetaStore } from "@/stores/tarjetas";
 import ImageInput from "@/components/ImageInput.vue";
 
 export default defineComponent({
-  name: "AddMetodo",
+  name: "AddTarjetaModal",
   components: {
     Form,
     Field,
     ErrorMessage,
     ImageInput,
   },
-  props: {
-    metodo: {
-      type: Object,
-      required: true,
-    },
-  },
 
-  setup(props) {
-    const idEdit = ref();
-    const formData = ref({
-      image: "",
-      nombre: "",
-      descripcion: "",
-    });
-
-    watch(
-      () => props.metodo,
-      (MetodoToEdit) => {
-        if (MetodoToEdit) {
-          idEdit.value = MetodoToEdit.id;
-          formData.value.image = MetodoToEdit.image || "";
-          formData.value.nombre = MetodoToEdit.nombre || "";
-          formData.value.descripcion = MetodoToEdit.descripcion || "";
-        }
-      },
-      { immediate: true },
-    );
-    const metodoStore = useMetodoStore();
+  setup() {
+    const tarjetaStore = useTarjetaStore();
     const formRef = ref<null | HTMLFormElement>(null);
-    const editMetodoModalRef = ref<null | HTMLElement>(null);
+    const addTarjetaModalRef = ref<null | HTMLElement>(null);
     const schema = yup.object({
       nombre: yup.string().required("El nombre es obligatorio"),
+      codigo: yup.string().required("El codigo es obligatorio"),
+      metodo: yup.string().required("El metodo es obligatorio"),
       descripcion: yup.string().required("La descripción es obligatoria"),
       image: yup.string().required("La imagen es obligatoria"),
     });
@@ -144,23 +145,25 @@ export default defineComponent({
 
     // URL de la imagen (usada en el ImageInput mediante v-model)
     const imageUrl = ref<string>("");
-
+    const selectedOption = ref();
     const handleSubmit = (
       values: any,
       { resetForm }: { resetForm: () => void },
     ) => {
       console.log("ejecutando");
 
-      const editService = {
-        id: idEdit.value,
-        nombre: formData.value.nombre,
-        descripcion: formData.value.descripcion,
-        image: formData.value.image,
+      const newTarjeta = {
+        nombre: values.nombre,
+        codigo: values.codigo,
+        metodo: selectedOption.value,
+        descripcion: values.descripcion,
+        image: imageUrl.value,
       };
 
-      metodoStore.updateMetodo(editService.id);
-      console.log("Metodo agregado:", editService);
-      hideModal(editMetodoModalRef.value);
+      tarjetaStore.addTarjeta(newTarjeta);
+      //listar Tarjetas();
+      console.log("tarjeta agregado:", newTarjeta);
+      hideModal(addTarjetaModalRef.value);
       resetForm();
       imageUrl.value = "";
     };
@@ -169,11 +172,13 @@ export default defineComponent({
       schema,
       handleSubmit,
       formRef,
-      editMetodoModalRef,
+      addTarjetaModalRef,
       imageUrl,
       errors,
-      formData,
+      selectedOption,
     };
   },
 });
 </script>
+
+<style scoped></style>
