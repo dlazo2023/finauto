@@ -109,6 +109,7 @@
           <img
             :src="tarjeta.image"
             :alt="tarjeta.name"
+            class="rounded"
             style="width: 50px; height: 50px"
           />
         </template>

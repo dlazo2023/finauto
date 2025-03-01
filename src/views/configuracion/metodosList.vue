@@ -109,6 +109,7 @@
           <img
             :src="metodo.image"
             :alt="metodo.name"
+            class="rounded"
             style="width: 50px; height: 50px"
           />
         </template>
