@@ -703,6 +703,10 @@ export default function useDynamicMenu() {
             heading: "Cuentas bancarias",
             route: "/configuracion/cuentas-bancarias",
           },
+          {
+            heading: "Impuestos de plataforma",
+            route: "/configuracion/impuestos",
+          },
         ],
       },
     ]; // Retorno por defecto

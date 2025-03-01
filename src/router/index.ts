@@ -303,6 +303,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       // END CREAR OFERTAS POR MÓDULOS
 
+      //CONFIGURACION
       {
         path: "/configuracion/metodos-de-pago",
         name: "configuracion-metodos-de-pago",
@@ -321,6 +322,27 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Configuracion", "Tarjetas de credito"],
         },
       },
+      // {
+      //   path: "/configuracion/cuentas-bancarias",
+      //   name: "configuracion-cuentas-bancarias",
+      //   component: () => import("@/views/configuracion/tarjetasList.vue"),
+      //   meta: {
+      //     pageTitle: "Cuentas bancarias",
+      //     breadcrumbs: ["Configuracion", "Cuentas bancarias"],
+      //   },
+      // },
+
+      {
+        path: "/configuracion/impuestos",
+        name: "configuracion-impuestos",
+        component: () => import("@/views/configuracion/impuestos.vue"),
+        meta: {
+          pageTitle: "Impuestos de plataforma",
+          breadcrumbs: ["Configuracion", "Impuestos de plataforma"],
+        },
+      },
+
+      //END CONFIGURACION
       {
         path: "/admin/user/users",
         name: "administration-user",
