@@ -1,17 +1,17 @@
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed } from "vue";
+import { getAssetPath } from "@/core/helpers/assets";
+import api from "@/services/api";
+import { defineComponent, onMounted, ref } from "vue";
 import Datatable from "@/components/kt-datatable/KTDataTable.vue";
+import type { Sort } from "@/components/kt-datatable//table-partials/models";
 import ExportCustomerModal from "@/components/modals/forms/otros/ExportCustomerModal.vue";
 import AddMarcaModal from "@/components/modals/forms/AddMarcaModal.vue";
 import EditMarcaModal from "@/components/modals/forms/EditMarcaModal.vue";
-// Asegúrate de importar la instancia de API y la función de ordenamiento
-import api from "@/services/api";
-import { useMarcaStore } from "@/stores/marcas";
 import arraySort from "array-sort";
 import { MenuComponent } from "@/assets/ts/components";
 
 export default defineComponent({
-  name: "CustomersListing",
+  name: "customers-listing",
   components: {
     Datatable,
     ExportCustomerModal,
@@ -39,122 +39,101 @@ export default defineComponent({
         columnWidth: 135,
       },
     ]);
-    const marcaStore = useMarcaStore();
-    // Datos reactivos
-    const marcas = computed(() => marcaStore.marcas);
-
-    const tableData = ref<any[]>([]);
-    const initCustomers = ref<any[]>([]);
-    const selectedIds = ref<string[]>([]);
-    const search = ref<string>("");
-    const selectedMarca = ref<any>(null);
-
-    // Tipado para el objeto de ordenamiento
-    type Sort = {
-      label: string;
-      order: "asc" | "desc";
-    };
-
-    // Refresca tableData e initCustomers a partir de las marcas
-    const refreshTableData = () => {
-      tableData.value = [...marcas.value];
-      initCustomers.value = [...tableData.value];
-    };
-
+    const initCustomers = ref([]);
+    const tableData = ref();
     onMounted(async () => {
-      await marcaStore.fetchMarcas();
-      refreshTableData();
+      getMarcas();
+      tableData.value = marcas.value;
+      initCustomers.value.splice(0, tableData.value.length, ...tableData.value);
     });
 
-    // Elimina un cliente (marca) buscando su índice
-    const deleteCustomer = (id: string) => {
-      const index = tableData.value.findIndex((item) => item.id === id);
-      if (index !== -1) {
-        tableData.value.splice(index, 1);
-      }
-    };
+    const selectedIds = ref<Array<string>>([]);
+    const marcas = ref([]);
 
-    // Elimina múltiples clientes
-    const deleteFewCustomers = () => {
-      selectedIds.value.forEach((id) => deleteCustomer(id));
-      selectedIds.value = [];
-    };
-
-    // Función de búsqueda: revisa si alguna propiedad (de tipo string) contiene el valor buscado
-    const searchItems = async () => {
-      const query = search.value.trim();
-      if (query) {
-        console.log(query);
-        try {
-          const { data } = await api.get("/marcas/search-by-field", {
-            params: {
-              "name.es": query,
-              "name.en": "",
-              "description.es": "",
-              "description.en": "",
-            },
-          });
-          console.log(data.data);
-
-          if (data.isSuccess) {
-            tableData.value = data.data;
-          } else {
-            tableData.value = [];
-          }
-        } catch (error) {
-          console.error("Error al realizar la búsqueda:", error);
-          tableData.value = [];
+    const getMarcas = async () => {
+      try {
+        const { data } = await api.get("/marcas/all");
+        if (data.isSuccess) {
+          marcas.value = data.data;
         }
-      } else {
-        // Si no hay término de búsqueda, se restauran los datos iniciales
-        tableData.value = [...initCustomers.value];
-      }
-      if (
-        typeof MenuComponent !== "undefined" &&
-        MenuComponent.reinitialization
-      ) {
-        MenuComponent.reinitialization();
+        console.log(marcas.value);
+      } catch (error) {
+        console.error("Error al obtener las marcas:", error);
       }
     };
 
-    // Ordena la tabla según el criterio recibido
+    const selectedMarca = ref();
+
+    const deleteFewCustomers = () => {
+      selectedIds.value.forEach((item) => {
+        deleteCustomer(item);
+      });
+      selectedIds.value.length = 0;
+    };
+
+    const deleteCustomer = (id: string) => {
+      for (let i = 0; i < tableData.value.length; i++) {
+        if (tableData.value[i].id === id) {
+          tableData.value.splice(i, 1);
+        }
+      }
+    };
+
+    const search = ref<string>("");
+    const searchItems = () => {
+      tableData.value.splice(0, tableData.value.length, ...initCustomers.value);
+      if (search.value !== "") {
+        let results = [];
+        for (let j = 0; j < tableData.value.length; j++) {
+          if (searchingFunc(tableData.value[j], search.value)) {
+            results.push(tableData.value[j]);
+          }
+        }
+        tableData.value.splice(0, tableData.value.length, ...results);
+      }
+      MenuComponent.reinitialization();
+    };
+
+    const searchingFunc = (obj: any, value: string): boolean => {
+      for (let key in obj) {
+        if (!Number.isInteger(obj[key]) && !(typeof obj[key] === "object")) {
+          if (obj[key].indexOf(value) != -1) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
     const sort = (sort: Sort) => {
       const reverse: boolean = sort.order === "asc";
       if (sort.label) {
         arraySort(tableData.value, sort.label, { reverse });
       }
     };
-
-    // Actualiza la lista de IDs seleccionados
-    const onItemSelect = (selectedItems: string[]) => {
+    const onItemSelect = (selectedItems: Array<string>) => {
       selectedIds.value = selectedItems;
     };
 
-    // Asigna la marca seleccionada para edición
-    const editMarca = (marca: any) => {
-      console.log("Logo de la marca:", marca.logo);
+    const editMarca = (marca) => {
+      console.log(marca.logo);
       selectedMarca.value = marca;
     };
 
-    // Función auxiliar para obtener la ruta de un asset (reemplaza con la lógica real)
-    const getAssetPath = (path: string) => {
-      return `/assets/${path}`;
-    };
-
     return {
-      tableHeader,
       tableData,
-      marcas,
-      search,
-      selectedIds,
-      selectedMarca,
-      getAssetPath,
+      tableHeader,
       deleteCustomer,
-      deleteFewCustomers,
+      search,
       searchItems,
+      selectedIds,
+      deleteFewCustomers,
       sort,
       onItemSelect,
+      getAssetPath,
+      selectedMarca,
       editMarca,
+      marcas,
     };
   },
 });
@@ -313,6 +292,12 @@ export default defineComponent({
           <!--end::Menu-->
         </template>
       </Datatable>
+    </div>
+    <div>
+      <h2>Lista de Marcas</h2>
+      <ul>
+        <li v-for="marca in marcas" :key="marca.id">{{ marca.name.es }}</li>
+      </ul>
     </div>
   </div>
 

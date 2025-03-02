@@ -37,25 +37,25 @@
             <div class="mb-4 px-4 py-4 col-11 mx-6">
               <label class="required form-label">Nombre del marca</label>
               <Field
-                name="nombre"
+                name="name"
                 as="input"
                 type="text"
                 class="form-control"
                 placeholder="Ponga el nombre del marca"
               />
-              <ErrorMessage name="nombre" class="text-danger" />
+              <ErrorMessage name="name" class="text-danger" />
             </div>
 
             <!-- Campo: Descripción -->
             <div class="mb-4 px-4 py-4 col-11 mx-6">
               <label class="required form-label">Descripción</label>
               <Field
-                name="descripcion"
+                name="description"
                 as="textarea"
                 class="form-control"
                 placeholder="Ponga la descripción"
               />
-              <ErrorMessage name="descripcion" class="text-danger" />
+              <ErrorMessage name="description" class="text-danger" />
             </div>
           </div>
 
@@ -80,7 +80,10 @@ import * as yup from "yup";
 import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 import { hideModal } from "@/core/helpers/modal";
 import { useMarcaStore } from "@/stores/marcas";
-
+interface AddMarcaFormFields {
+  name: string;
+  description: string;
+}
 export default defineComponent({
   name: "AddMarca",
   components: {
@@ -91,34 +94,39 @@ export default defineComponent({
 
   setup() {
     const marcaStore = useMarcaStore();
-    const formRef = ref<null | HTMLFormElement>(null);
-    const addMarcaModalRef = ref<null | HTMLElement>(null);
+    const formRef = ref<HTMLFormElement | null>(null);
+    const addMarcaModalRef = ref<HTMLElement | null>(null);
+
     const schema = yup.object({
-      nombre: yup.string().required("El nombre es obligatorio"),
-      descripcion: yup.string().required("La descripción es obligatoria"),
+      name: yup.string().required("El nombre es obligatorio"),
+      description: yup.string().required("La descripción es obligatoria"),
     });
 
-    const { errors } = useForm({ validationSchema: schema });
+    const { errors } = useForm<AddMarcaFormFields>({
+      validationSchema: schema,
+    });
+    const selectedOption = ref(null);
 
-    // URL de la imagen (usada en el ImageInput mediante v-model)
-
-    const selectedOption = ref();
-    const handleSubmit = (
+    // Función de envío del formulario
+    const handleSubmit = async (
       values: any,
       { resetForm }: { resetForm: () => void },
     ) => {
-      console.log("ejecutando");
-
       const newMarca = {
-        nombre: values.nombre,
-        descripcion: values.descripcion,
+        name: { es: values.name, en: "" },
+        description: { es: values.description, en: "" },
       };
 
-      marcaStore.addMarca(newMarca);
-      //listar Marcas();
-      console.log("marca agregado:", newMarca);
-      hideModal(addMarcaModalRef.value);
-      resetForm();
+      try {
+        const response = await marcaStore.addMarca(newMarca);
+        await marcaStore.fetchMarcas(); // Recargar las marcas
+        console.log("Marca agregada:", response);
+      } catch (error) {
+        console.error("Error al agregar marca:", error);
+      } finally {
+        hideModal(addMarcaModalRef.value);
+        resetForm();
+      }
     };
 
     return {
