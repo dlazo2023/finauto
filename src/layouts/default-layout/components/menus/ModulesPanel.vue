@@ -9,11 +9,12 @@ export default defineComponent({
     const store = useAppStore();
     const modulos = ref([
       { name: "General", path: "" },
-      { name: "Carro", path: "" },
-      { name: "Piezas", path: "" },
+      { name: "Carro", path: "/comercializacion/reservar/carro" },
+      { name: "Piezas", path: "comercializacion/reservar/pieza" },
+      { name: "Servicios", path: "comercializacion/reservar/servicio" },
       {
         name: "Equipamiento de garaje",
-        path: "",
+        path: "comercializacion/reservar/equipamiento",
       },
     ]);
 

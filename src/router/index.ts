@@ -447,6 +447,59 @@ const routes: Array<RouteRecordRaw> = [
           breadcrumbs: ["Administracion", "Nomencladores", "Modelos"],
         },
       },
+
+      /* Pagina de reservar (Carros) */
+      {
+        path: "/comercializacion/reservar/carro",
+        name: "comercializacion-reservar-carro",
+        component: () =>
+          import(
+            "@/views/comercializacion/reservas/reservasForm/crear-reserva-carro.vue"
+          ),
+        meta: {
+          pageTitle: "Reservar",
+          breadcrumbs: ["Comercialización", "Carros", "Reservar"],
+        },
+      },
+      /* Pagina de reservar (Piezas) */
+      {
+        path: "/comercializacion/reservar/pieza",
+        name: "comercializacion-reservar-pieza",
+        component: () =>
+          import(
+            "@/views/comercializacion/reservas/reservasForm/crear-reserva-pieza.vue"
+          ),
+        meta: {
+          pageTitle: "Reservar",
+          breadcrumbs: ["Comercialización", "Piezas", "Reservar"],
+        },
+      },
+      /* Pagina de reservar (Equipamientos) */
+      {
+        path: "/comercializacion/reservar/equipamiento",
+        name: "comercializacion-reservar-equipamiento",
+        component: () =>
+          import(
+            "@/views/comercializacion/reservas/reservasForm/crear-reserva-equipamiento.vue"
+          ),
+        meta: {
+          pageTitle: "Reservar",
+          breadcrumbs: ["Comercialización", "Equipamientos", "Reservar"],
+        },
+      },
+      /* Pagina de reservar (Servicios) */
+      {
+        path: "/comercializacion/reservar/servicio",
+        name: "comercializacion-reservar-servicio",
+        component: () =>
+          import(
+            "@/views/comercializacion/reservas/reservasForm/crear-reserva-servicio.vue"
+          ),
+        meta: {
+          pageTitle: "Reservar",
+          breadcrumbs: ["Comercialización", "Servicios", "Reservar"],
+        },
+      },
     ],
   },
   {
