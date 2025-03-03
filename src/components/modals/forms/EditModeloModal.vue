@@ -134,7 +134,6 @@ export default defineComponent({
       { resetForm }: { resetForm: () => void },
     ) => {
       try {
-        // Preparamos el objeto con los datos actualizados
         const updatedData = {
           name: { es: values.nameEs, en: values.nameEn || "" },
           description: {
@@ -144,7 +143,7 @@ export default defineComponent({
         };
 
         console.log(updatedData);
-        // Llamamos a updateModelo pasando el ID y el objeto con los datos actualizados
+
         await modeloStore.updateModelo(formData.value.id, updatedData);
         await modeloStore.fetchModelos(); // Refrescamos la lista de modelos
 

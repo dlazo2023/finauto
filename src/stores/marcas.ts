@@ -1,8 +1,6 @@
 import { defineStore } from "pinia";
 import api from "@/services/api";
-import Swal from "sweetalert2";
 
-// Se define la interfaz de la marca según lo que necesita la API
 interface IMarca {
   name: {
     es: string;
