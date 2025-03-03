@@ -80,6 +80,7 @@ import * as yup from "yup";
 import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 import { hideModal } from "@/core/helpers/modal";
 import { useMarcaStore } from "@/stores/marcas";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 interface AddMarcaFormFields {
   name: string;
   description: string;
@@ -107,7 +108,6 @@ export default defineComponent({
     });
     const selectedOption = ref(null);
 
-    // Función de envío del formulario
     const handleSubmit = async (
       values: any,
       { resetForm }: { resetForm: () => void },
@@ -119,10 +119,31 @@ export default defineComponent({
 
       try {
         const response = await marcaStore.addMarca(newMarca);
-        await marcaStore.fetchMarcas(); // Recargar las marcas
+        await marcaStore.fetchMarcas();
         console.log("Marca agregada:", response);
-      } catch (error) {
+        Swal.fire({
+          text: "Marca agregada correctamente",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok",
+          heightAuto: false,
+          customClass: {
+            confirmButton: "btn btn-primary",
+          },
+        });
+      } catch (error: any) {
         console.error("Error al agregar marca:", error);
+
+        Swal.fire({
+          text: "Error al crear la marca",
+          icon: "error",
+          buttonsStyling: false,
+          confirmButtonText: "Ok",
+          heightAuto: false,
+          customClass: {
+            confirmButton: "btn btn-primary",
+          },
+        });
       } finally {
         hideModal(addMarcaModalRef.value);
         resetForm();

@@ -1,8 +1,8 @@
 <template>
   <div
     class="modal fade"
-    id="kt_modal_edit_usuario"
-    ref="addUsuarioModalRef"
+    id="kt_modal_edit_modelo"
+    ref="editModeloModalRef"
     tabindex="-1"
     aria-hidden="true"
   >
@@ -11,14 +11,14 @@
       <!--begin::Modal content-->
       <div class="modal-content">
         <!--begin::Modal header-->
-        <div class="modal-header" id="kt_modal_edit_usuario_header">
+        <div class="modal-header" id="kt_modal_edit_provincia_header">
           <!--begin::Modal title-->
-          <h2 class="fw-bold">Editar Usuario</h2>
+          <h2 class="fw-bold">Editar Modelo</h2>
           <!--end::Modal title-->
 
           <!--begin::Close-->
           <div
-            id="kt_modal_edit_usuario_close"
+            id="kt_modal_edit_provincia_close"
             data-bs-dismiss="modal"
             class="btn btn-icon btn-sm btn-active-icon-primary"
           >
@@ -28,124 +28,43 @@
         </div>
         <!--end::Modal header-->
         <!--begin::Form-->
-        <el-form
-          @submit.prevent="submit()"
-          :model="formData"
-          :rules="rules"
-          ref="formRef"
-        >
-          <!--begin::Modal body-->
-          <div class="modal-body py-10 px-lg-17">
-            <!--begin::Scroll-->
-            <div
-              class="scroll-y me-n7 pe-7"
-              id="kt_modal_edit_usuario_scroll"
-              data-kt-scroll="true"
-              data-kt-scroll-activate="{default: false, lg: true}"
-              data-kt-scroll-max-height="auto"
-              data-kt-scroll-dependencies="#kt_modal_edit_usuario_header"
-              data-kt-scroll-wrappers="#kt_modal_edit_usuario_scroll"
-              data-kt-scroll-offset="300px"
-            >
-              <!--begin::Input group-->
-              <div class="fv-row mb-7">
-                <!--begin::Label-->
-                <label class="required fs-6 fw-semibold mb-2">Name</label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <el-form-item prop="name">
-                  <el-input
-                    v-model="formData.name"
-                    type="text"
-                    placeholder=""
-                  />
-                </el-form-item>
-                <!--end::Input-->
-              </div>
-              <!--end::Input group-->
-
-              <!--begin::Input group-->
-              <div class="fv-row mb-7">
-                <!--begin::Label-->
-                <label class="fs-6 fw-semibold mb-2">
-                  <span class="required">Email</span>
-
-                  <i
-                    class="fas fa-exclamation-circle ms-1 fs-7"
-                    data-bs-toggle="tooltip"
-                    title="Email address must be active"
-                  ></i>
-                </label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <el-form-item prop="email">
-                  <el-input v-model="formData.email" />
-                </el-form-item>
-                <!--end::Input-->
-              </div>
-              <!--end::Input group-->
-
-              <!--begin::Input group-->
-              <div class="fv-row mb-7">
-                <!--begin::Label-->
-                <label class="fs-6 fw-semibold mb-2">
-                  <span class="required">Role</span>
-
-                  <i
-                    class="fas fa-exclamation-circle ms-1 fs-7"
-                    data-bs-toggle="tooltip"
-                    title="Role must be active"
-                  ></i>
-                </label>
-                <!--end::Label-->
-
-                <!--begin::Input-->
-                <el-form-item prop="email">
-                  <el-input v-model="formData.role" />
-                </el-form-item>
-                <!--end::Input-->
-              </div>
-              <!--end::Input group-->
-            </div>
-            <!--end::Scroll-->
+        <Form :validation-schema="schema" @submit="handleSubmit">
+          <!-- Campo: Nombre del metodo -->
+          <div class="mb-4 px-4 py-4 col-11 mx-6">
+            <label class="required form-label">Nombre del metodo</label>
+            <Field
+              name="nameEs"
+              v-model="formData.nameEs"
+              as="input"
+              type="text"
+              class="form-control"
+              placeholder="Ponga el nombre del metodo"
+            />
+            <ErrorMessage name="nameEs" class="text-danger" />
           </div>
-          <!--end::Modal body-->
 
-          <!--begin::Modal footer-->
-          <div class="modal-footer flex-center">
-            <!--begin::Button-->
-            <button
-              type="reset"
-              id="kt_modal_edit_usuario_cancel"
-              class="btn btn-light me-3"
-            >
-              Discard
-            </button>
-            <!--end::Button-->
-
-            <!--begin::Button-->
-            <button
-              :data-kt-indicator="loading ? 'on' : null"
-              class="btn btn-lg btn-primary"
-              type="submit"
-            >
-              <span v-if="!loading" class="indicator-label">
-                Submit
-                <KTIcon icon-name="arrow-right" icon-class="fs-2 me-2 me-0" />
-              </span>
-              <span v-if="loading" class="indicator-progress">
-                Please wait...
-                <span
-                  class="spinner-border spinner-border-sm align-middle ms-2"
-                ></span>
-              </span>
-            </button>
-            <!--end::Button-->
+          <!-- Campo: Descripción -->
+          <div class="mb-4 px-4 py-4 col-11 mx-6">
+            <label class="required form-label">Descripción</label>
+            <Field
+              name="descriptionEs"
+              v-model="formData.descriptionEs"
+              as="textarea"
+              class="form-control"
+              placeholder="Ponga la descripción"
+            />
+            <ErrorMessage name="descriptionEs" class="text-danger" />
           </div>
-          <!--end::Modal footer-->
-        </el-form>
+          <!-- Footer del formulario -->
+          <div class="card-footer my-8 d-flex justify-content-end">
+            <a href="#" class="btn btn-bg-secondary" data-bs-dismiss="modal"
+              >Cancelar</a
+            >
+            <button type="submit" class="btn btn-bg-primary mx-3">
+              Actualizar
+            </button>
+          </div>
+        </Form>
         <!--end::Form-->
       </div>
     </div>
@@ -153,131 +72,95 @@
 </template>
 
 <script lang="ts">
-import { getAssetPath } from "@/core/helpers/assets";
-import { defineComponent, ref, computed, watch } from "vue";
+import { defineComponent, ref, watchEffect, computed } from "vue";
+import * as yup from "yup";
+import { Form, Field, ErrorMessage, useForm } from "vee-validate";
 import { hideModal } from "@/core/helpers/modal";
-import Swal from "sweetalert2/dist/sweetalert2.js";
+import { useModeloStore } from "@/stores/modelos";
 
 export default defineComponent({
-  name: "add-customer-modal",
-  components: {},
+  name: "EditModelo",
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+    // Agrega aquí otros componentes, como ImageInput, si es necesario
+  },
   props: {
-    user: {
+    modelo: {
       type: Object,
       required: true,
     },
   },
   setup(props) {
-    const formRef = ref<null | HTMLFormElement>(null);
-    const addUsuarioModalRef = ref<null | HTMLElement>(null);
-    const loading = ref<boolean>(false);
-    // Crear la fecha actual
-    const currentDate = new Date();
+    const modeloStore = useModeloStore();
+    const editModeloModalRef = ref<HTMLElement | null>(null);
 
-    // Computed para formatear la fecha
-    const formattedDate = computed((): string => {
-      const options: Intl.DateTimeFormatOptions = {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      };
-      return currentDate.toLocaleString("es-ES", options); // Formato en español
-    });
+    // Objeto reactivo para almacenar los datos del formulario
     const formData = ref({
-      name: "",
-      email: "",
-      role: "",
-      date: formattedDate.value,
+      id: "",
+      nameEs: "",
+      nameEn: "",
+      descriptionEs: "",
+      descriptionEn: "",
     });
 
-    watch(
-      () => props.user,
-      (newUser) => {
-        if (newUser) {
-          formData.value.name = newUser.name || "";
-          formData.value.email = newUser.email || "";
-          formData.value.role = newUser.role || "";
-        }
-      },
-      { immediate: true } // Ensure it runs when the component is mounted
-    );
-
-    const rules = ref({
-      name: [
-        {
-          required: true,
-          message: "Customer name is required",
-          trigger: "change",
-        },
-      ],
-      email: [
-        {
-          required: true,
-          message: "Customer email is required",
-          trigger: "change",
-        },
-      ],
-      role: [
-        {
-          required: true,
-          message: "Role is required",
-          trigger: "change",
-        },
-      ],
+    // Esquema de validación con yup
+    const schema = yup.object({
+      nameEs: yup.string().required("El nombre en español es obligatorio"),
+      nameEn: yup.string(),
+      descriptionEs: yup
+        .string()
+        .required("La descripción en español es obligatoria"),
+      descriptionEn: yup.string(),
     });
 
-    const submit = () => {
-      if (!formRef.value) {
-        return;
+    const { errors } = useForm({ validationSchema: schema });
+
+    // Sincronizamos los datos de la prop "modelo" con el formulario
+    watchEffect(() => {
+      if (props.modelo) {
+        formData.value.id = props.modelo.id || "";
+        formData.value.nameEs = props.modelo.name?.es || "";
+        formData.value.nameEn = props.modelo.name?.en || "";
+        formData.value.descriptionEs = props.modelo.description?.es || "";
+        formData.value.descriptionEn = props.modelo.description?.en || "";
       }
+    });
 
-      formRef.value.validate((valid: boolean) => {
-        if (valid) {
-          loading.value = true;
+    // Función de envío del formulario
+    const handleSubmit = async (
+      values: any,
+      { resetForm }: { resetForm: () => void },
+    ) => {
+      try {
+        // Preparamos el objeto con los datos actualizados
+        const updatedData = {
+          name: { es: values.nameEs, en: values.nameEn || "" },
+          description: {
+            es: values.descriptionEs,
+            en: values.descriptionEn || "",
+          },
+        };
 
-          setTimeout(() => {
-            loading.value = false;
+        console.log(updatedData);
+        // Llamamos a updateModelo pasando el ID y el objeto con los datos actualizados
+        await modeloStore.updateModelo(formData.value.id, updatedData);
+        await modeloStore.fetchModelos(); // Refrescamos la lista de modelos
 
-            Swal.fire({
-              text: "Form has been successfully submitted!",
-              icon: "success",
-              buttonsStyling: false,
-              confirmButtonText: "Ok, got it!",
-              heightAuto: false,
-              customClass: {
-                confirmButton: "btn btn-primary",
-              },
-            }).then(() => {
-              hideModal(addUsuarioModalRef.value);
-            });
-          }, 2000);
-        } else {
-          Swal.fire({
-            text: "Sorry, looks like there are some errors detected, please try again.",
-            icon: "error",
-            buttonsStyling: false,
-            confirmButtonText: "Ok, got it!",
-            heightAuto: false,
-            customClass: {
-              confirmButton: "btn btn-primary",
-            },
-          });
-          return false;
-        }
-      });
+        hideModal(editModeloModalRef.value);
+        resetForm();
+      } catch (error) {
+        console.error("Error al actualizar la modelo:", error);
+      }
     };
 
     return {
+      editModeloModalRef,
       formData,
-      rules,
-      submit,
-      formRef,
-      loading,
-      addUsuarioModalRef,
-      getAssetPath,
+      errors,
+      schema,
+      handleSubmit,
     };
   },
 });

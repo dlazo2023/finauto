@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import api from "@/services/api";
+import Swal from "sweetalert2";
 
 // Se define la interfaz de la marca según lo que necesita la API
 interface IMarca {
@@ -15,7 +16,6 @@ interface IMarca {
 
 export const useMarcaStore = defineStore("marcas", {
   state: () => ({
-    // Almacenamos las marcas en el estado, pudiendo actualizar la lista luego de cada acción
     marcas: [] as IMarca[],
   }),
   actions: {
@@ -46,7 +46,6 @@ export const useMarcaStore = defineStore("marcas", {
     },
 
     async updateMarca(updatedMarcaID: string, marca: IMarca) {
-      // Se arma el payload para actualizar, incluyendo el id y la regla de actualización
       const payload = {
         id: updatedMarcaID,
         ...marca,

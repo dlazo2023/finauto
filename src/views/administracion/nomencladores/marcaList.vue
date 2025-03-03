@@ -8,6 +8,7 @@ import api from "@/services/api";
 import { useMarcaStore } from "@/stores/marcas";
 import arraySort from "array-sort";
 import { MenuComponent } from "@/assets/ts/components";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default defineComponent({
   name: "CustomersListing",
@@ -64,7 +65,29 @@ export default defineComponent({
     });
 
     const deleteMarca = async (id: string) => {
-      await marcaStore.deleteMarca(id);
+      const result = await Swal.fire({
+        icon: "warning",
+        text: "¿Quieres eliminar esta marca?",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (!result.isConfirmed) {
+        return;
+      } else {
+        await marcaStore.deleteMarca(id);
+        Swal.fire({
+          text: "Marca eliminada correctamente",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Ok",
+          heightAuto: false,
+          customClass: {
+            confirmButton: "btn btn-primary",
+          },
+        });
+      }
       await marcaStore.fetchMarcas(); // Recargar las marcas
     };
 
@@ -262,7 +285,7 @@ export default defineComponent({
         </template>
         <template v-slot:actions="{ row: marca }">
           <a
-            href="#"
+            href=""
             class="btn btn-sm btn-light btn-active-light-primary"
             data-kt-menu-trigger="click"
             data-kt-menu-placement="bottom-end"
