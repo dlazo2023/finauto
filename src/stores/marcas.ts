@@ -13,25 +13,6 @@ interface IMarca {
   };
 }
 
-// Interfaz para el payload de creación
-// interface IMarcaCreatePayload extends IMarca {
-//   rules: {
-//     method: "CREATE";
-//     comparisonKind: "UINQUE";
-//     field: string[];
-//   };
-// }
-
-// Interfaz para el payload de actualización
-interface IMarcaUpdatePayload extends IMarca {
-  id: string;
-  rules: {
-    method: "UPDATE";
-    comparisonKind: "UINQUE";
-    field: string[];
-  };
-}
-
 export const useMarcaStore = defineStore("marcas", {
   state: () => ({
     // Almacenamos las marcas en el estado, pudiendo actualizar la lista luego de cada acción
@@ -42,7 +23,7 @@ export const useMarcaStore = defineStore("marcas", {
       try {
         const { data } = await api.get("/marcas/all");
         if (data.isSuccess) {
-          this.marcas = data.data;
+          this.marcas = [...data.data];
         }
       } catch (error) {
         console.error("Error al obtener las marcas:", error);
@@ -50,17 +31,13 @@ export const useMarcaStore = defineStore("marcas", {
     },
 
     async addMarca(marca: IMarca) {
-      // Se arma el payload requerido para crear una marca
       const payload = {
         ...marca,
       };
 
       try {
         const { data } = await api.post("/marcas", payload);
-        if (data.isSuccess) {
-          // Se puede agregar la nueva marca al estado si es necesario
-          this.marcas.push(data.data);
-        }
+        await this.fetchMarcas();
         return data;
       } catch (error) {
         console.error("Error al crear la marca:", error);
@@ -70,7 +47,7 @@ export const useMarcaStore = defineStore("marcas", {
 
     async updateMarca(updatedMarcaID: string, marca: IMarca) {
       // Se arma el payload para actualizar, incluyendo el id y la regla de actualización
-      const payload: IMarcaUpdatePayload = {
+      const payload = {
         id: updatedMarcaID,
         ...marca,
         rules: {
@@ -79,21 +56,32 @@ export const useMarcaStore = defineStore("marcas", {
           field: ["name"],
         },
       };
+      console.log(payload);
 
       try {
-        const { data } = await api.patch(`/marcas/${updatedMarcaID}`, payload);
-        if (data.isSuccess) {
-          // Se actualiza la marca en el estado, buscando su índice y reemplazándola
-          const index = this.marcas.findIndex(
-            (item: any) => item.id === updatedMarcaID,
-          );
-          if (index !== -1) {
-            this.marcas[index] = data.data;
-          }
+        const { data } = await api.patch("/marcas", payload);
+        const index = this.marcas.findIndex(
+          (item: any) => item.id === updatedMarcaID,
+        );
+        if (index !== -1) {
+          this.marcas[index] = data.data;
         }
+
+        await this.fetchMarcas();
         return data;
       } catch (error) {
         console.error("Error al actualizar la marca:", error);
+        throw error;
+      }
+    },
+
+    async deleteMarca(id: string) {
+      try {
+        const { data } = await api.delete("/marcas", { data: { id } });
+        await this.fetchMarcas();
+        return data;
+      } catch (error) {
+        console.error("Error al eliminar la marca:", error);
         throw error;
       }
     },

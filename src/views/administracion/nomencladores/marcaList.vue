@@ -4,7 +4,6 @@ import Datatable from "@/components/kt-datatable/KTDataTable.vue";
 import ExportCustomerModal from "@/components/modals/forms/otros/ExportCustomerModal.vue";
 import AddMarcaModal from "@/components/modals/forms/AddMarcaModal.vue";
 import EditMarcaModal from "@/components/modals/forms/EditMarcaModal.vue";
-// Asegúrate de importar la instancia de API y la función de ordenamiento
 import api from "@/services/api";
 import { useMarcaStore } from "@/stores/marcas";
 import arraySort from "array-sort";
@@ -43,13 +42,12 @@ export default defineComponent({
     // Datos reactivos
     const marcas = computed(() => marcaStore.marcas);
 
-    const tableData = ref<any[]>([]);
+    const tableData = computed(() => marcas.value);
     const initCustomers = ref<any[]>([]);
     const selectedIds = ref<string[]>([]);
     const search = ref<string>("");
     const selectedMarca = ref<any>(null);
 
-    // Tipado para el objeto de ordenamiento
     type Sort = {
       label: string;
       order: "asc" | "desc";
@@ -57,7 +55,6 @@ export default defineComponent({
 
     // Refresca tableData e initCustomers a partir de las marcas
     const refreshTableData = () => {
-      tableData.value = [...marcas.value];
       initCustomers.value = [...tableData.value];
     };
 
@@ -66,21 +63,16 @@ export default defineComponent({
       refreshTableData();
     });
 
-    // Elimina un cliente (marca) buscando su índice
-    const deleteCustomer = (id: string) => {
-      const index = tableData.value.findIndex((item) => item.id === id);
-      if (index !== -1) {
-        tableData.value.splice(index, 1);
-      }
+    const deleteMarca = async (id: string) => {
+      await marcaStore.deleteMarca(id);
+      await marcaStore.fetchMarcas(); // Recargar las marcas
     };
 
-    // Elimina múltiples clientes
-    const deleteFewCustomers = () => {
-      selectedIds.value.forEach((id) => deleteCustomer(id));
+    const deleteFewMarcas = () => {
+      selectedIds.value.forEach((id) => deleteMarca(id));
       selectedIds.value = [];
     };
 
-    // Función de búsqueda: revisa si alguna propiedad (de tipo string) contiene el valor buscado
     const searchItems = async () => {
       const query = search.value.trim();
       if (query) {
@@ -132,13 +124,7 @@ export default defineComponent({
 
     // Asigna la marca seleccionada para edición
     const editMarca = (marca: any) => {
-      console.log("Logo de la marca:", marca.logo);
       selectedMarca.value = marca;
-    };
-
-    // Función auxiliar para obtener la ruta de un asset (reemplaza con la lógica real)
-    const getAssetPath = (path: string) => {
-      return `/assets/${path}`;
     };
 
     return {
@@ -148,9 +134,8 @@ export default defineComponent({
       search,
       selectedIds,
       selectedMarca,
-      getAssetPath,
-      deleteCustomer,
-      deleteFewCustomers,
+      deleteMarca,
+      deleteFewMarcas,
       searchItems,
       sort,
       onItemSelect,
@@ -227,7 +212,7 @@ export default defineComponent({
           <button
             type="button"
             class="btn btn-danger"
-            @click="deleteFewCustomers()"
+            @click="deleteFewMarcas()"
           >
             Delete Selected
           </button>
@@ -304,7 +289,7 @@ export default defineComponent({
             <!--end::Menu item-->
             <!--begin::Menu item-->
             <div class="menu-item px-3">
-              <a @click="deleteCustomer(marca.id)" class="menu-link px-3"
+              <a @click="deleteMarca(marca.id)" class="menu-link px-3"
                 >Delete</a
               >
             </div>
@@ -317,7 +302,7 @@ export default defineComponent({
   </div>
 
   <ExportCustomerModal></ExportCustomerModal>
-  <!-- <EditMarcaModal :marca="selectedMarca"></EditMarcaModal> -->
+  <EditMarcaModal :marca="selectedMarca"></EditMarcaModal>
   <AddMarcaModal></AddMarcaModal>
 </template>
 
