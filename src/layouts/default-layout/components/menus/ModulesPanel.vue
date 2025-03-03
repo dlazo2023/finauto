@@ -8,10 +8,10 @@ export default defineComponent({
   setup() {
     const store = useAppStore();
     const modulos = ref([
-      { name: "General", path: "/" },
+      { name: "General", path: "/dashboard" },
       { name: "Carro", path: "/comercializacion/reservar/carro" },
       { name: "Piezas", path: "/comercializacion/reservar/pieza" },
-      { name: "Servicios", path: "/comercializacion/reservar/servicio" },
+      { name: "Servicio", path: "/comercializacion/reservar/servicio" },
       {
         name: "Equipamiento de garaje",
         path: "/comercializacion/reservar/equipamiento",

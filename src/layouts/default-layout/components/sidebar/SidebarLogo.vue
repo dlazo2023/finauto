@@ -2,7 +2,7 @@
   <!--begin::Logo-->
   <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
     <!--begin::Logo image-->
-    <router-link to="/">
+    <router-link to="/" @click="store.categoriaSeleccionada = 'General'">
       <img
         v-if="
           layout === 'dark-sidebar' ||
@@ -52,19 +52,19 @@ import {
   sidebarToggleDisplay,
   themeMode,
 } from "@/layouts/default-layout/config/helper";
-
+import { useAppStore } from "@/stores/store";
 interface IProps {
   sidebarRef: HTMLElement | null;
 }
 
 const props = defineProps<IProps>();
-
+const store = useAppStore();
 const toggleRef = ref<HTMLFormElement | null>(null);
 
 onMounted(() => {
   setTimeout(() => {
     const toggleObj = ToggleComponent.getInstance(
-      toggleRef.value!
+      toggleRef.value!,
     ) as ToggleComponent | null;
 
     if (toggleObj === null) {

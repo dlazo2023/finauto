@@ -88,7 +88,7 @@ export default function useDynamicMenu() {
           pages: [
             {
               heading: "Reservar",
-              route: "/admin/reservar",
+              route: "/comercializacion/reservar/carro",
               keenthemesIcon: "notepad",
               bootstrapIcon: "bi-calendar3-event",
             },
@@ -151,7 +151,7 @@ export default function useDynamicMenu() {
           ],
         },
       ];
-    } else if (store.categoriaSeleccionada === "Piezas") {
+    } else if (store.categoriaSeleccionada === "Pieza") {
       return [
         {
           pages: [
@@ -232,7 +232,7 @@ export default function useDynamicMenu() {
           pages: [
             {
               heading: "Reservar",
-              route: "/admin/reservar",
+              route: "/comercializacion/reservar/pieza",
               keenthemesIcon: "notepad",
               bootstrapIcon: "bi-calendar3-event",
             },
@@ -401,7 +401,7 @@ export default function useDynamicMenu() {
 
             {
               heading: "Reservar",
-              route: "/admin/reservar",
+              route: "/comercializacion/reservar/equipamiento",
               keenthemesIcon: "notepad",
               bootstrapIcon: "bi-calendar3-event",
             },
@@ -439,6 +439,40 @@ export default function useDynamicMenu() {
               keenthemesIcon: "devices",
               bootstrapIcon: "bi-calendar3-event",
               sub: [],
+            },
+          ],
+        },
+      ];
+    } else if (store.categoriaSeleccionada === "Servicio") {
+      return [
+        {
+          pages: [
+            {
+              heading: "dashboard",
+              route: "/dashboard",
+              keenthemesIcon: "element-11",
+              bootstrapIcon: "bi-app-indicator",
+            },
+          ],
+        },
+
+        //           Comercialización        //
+        {
+          heading: "Comercialización",
+          route: "/apps",
+          pages: [
+            {
+              heading: "Reservar",
+              route: "/comercializacion/reservar/servicio",
+              keenthemesIcon: "notepad",
+              bootstrapIcon: "bi-calendar3-event",
+            },
+
+            {
+              heading: "Reservas",
+              route: "/admin/reservas",
+              keenthemesIcon: "notepad",
+              bootstrapIcon: "bi-calendar3-event",
             },
           ],
         },
