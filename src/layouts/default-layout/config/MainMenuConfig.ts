@@ -87,13 +87,6 @@ export default function useDynamicMenu() {
           route: "/apps",
           pages: [
             {
-              heading: "Reservar",
-              route: "/comercializacion/reservar/carro",
-              keenthemesIcon: "notepad",
-              bootstrapIcon: "bi-calendar3-event",
-            },
-
-            {
               heading: "Reservas",
               route: "/admin/reservas",
               keenthemesIcon: "notepad",
@@ -230,13 +223,6 @@ export default function useDynamicMenu() {
           heading: "Comercialización",
           route: "/apps",
           pages: [
-            {
-              heading: "Reservar",
-              route: "/comercializacion/reservar/pieza",
-              keenthemesIcon: "notepad",
-              bootstrapIcon: "bi-calendar3-event",
-            },
-
             {
               heading: "Reservas",
               route: "/admin/reservas",
@@ -400,13 +386,6 @@ export default function useDynamicMenu() {
             },
 
             {
-              heading: "Reservar",
-              route: "/comercializacion/reservar/equipamiento",
-              keenthemesIcon: "notepad",
-              bootstrapIcon: "bi-calendar3-event",
-            },
-
-            {
               heading: "Reservas",
               route: "/admin/reservas",
               keenthemesIcon: "notepad",
@@ -461,13 +440,6 @@ export default function useDynamicMenu() {
           heading: "Comercialización",
           route: "/apps",
           pages: [
-            {
-              heading: "Reservar",
-              route: "/comercializacion/reservar/servicio",
-              keenthemesIcon: "notepad",
-              bootstrapIcon: "bi-calendar3-event",
-            },
-
             {
               heading: "Reservas",
               route: "/admin/reservas",
@@ -558,13 +530,6 @@ export default function useDynamicMenu() {
         route: "/apps",
         pages: [
           {
-            heading: "Reservar",
-            route: "/admin/reservar",
-            keenthemesIcon: "notepad",
-            bootstrapIcon: "bi-calendar3-event",
-          },
-
-          {
             heading: "Reservas",
             route: "/admin/reservas",
             keenthemesIcon: "notepad",
@@ -577,10 +542,6 @@ export default function useDynamicMenu() {
             keenthemesIcon: "abstract-38",
             bootstrapIcon: "bi-printer",
             sub: [
-              {
-                heading: "gettingStarted",
-                route: "/apps/customers/getting-started",
-              },
               {
                 heading: "customersListing",
                 route: "/apps/customers/customers-listing",

@@ -113,11 +113,11 @@
             {{ customer.email }}
           </a>
         </template>
-        <template v-slot:idcuenta="{ row: customer }">
-          {{ customer.idcuenta }}
+        <template v-slot:phone="{ row: customer }">
+          {{ customer.phone }}
         </template>
         <template v-slot:estado="{ row: customer }">
-        {{ customer.estado }}
+          {{ customer.estado }}
         </template>
         <template v-slot:date="{ row: customer }">
           {{ customer.date }}
@@ -198,8 +198,8 @@ export default defineComponent({
         columnWidth: 230,
       },
       {
-        columnName: "ID de la cuenta",
-        columnLabel: "idcuenta",
+        columnName: "Número de teléfono",
+        columnLabel: "phone",
         sortEnabled: true,
         columnWidth: 175,
       },
