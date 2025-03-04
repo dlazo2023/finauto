@@ -448,6 +448,17 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
 
+      {
+        path: "/admin/nomencladores/importadoras",
+        name: "importadoras",
+        component: () =>
+          import("@/views/administracion/nomencladores/importadoraList.vue"),
+        meta: {
+          pageTitle: "Listado de Importadoras",
+          breadcrumbs: ["Administracion", "Nomencladores", "Importadoras"],
+        },
+      },
+
       /* Pagina de reservar (Carros) */
       {
         path: "/comercializacion/reservar/carro",
