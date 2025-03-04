@@ -1,29 +1,29 @@
 import { defineStore } from "pinia";
 import importadoras, { type IImportadora } from "@/core/data/importadoras";
 
-export const useImportadoraStore = defineStore("services", {
+export const useImportadoraStore = defineStore("importadoras", {
   state: () => ({
     importadoras: importadoras,
   }),
   actions: {
-    updateService(updatedService: IImportadora) {
+    updateImportadora(updatedImportadora: IImportadora) {
       const index = this.importadoras.findIndex(
-        (s) => s.id === updatedService.id,
+        (s) => s.id === updatedImportadora.id,
       );
       if (index !== -1) {
         // Actualiza el importadora existente
-        this.importadoras[index] = updatedService;
+        this.importadoras[index] = updatedImportadora;
       } else {
         console.warn("Importadora no encontrado para actualizar.");
       }
     },
-    addService(service: IImportadora) {
-      service.id = Math.floor(Math.random() * 99999) + 1;
-      this.importadoras.push(service);
+    addImportadora(importadora: IImportadora) {
+      importadora.id = Math.floor(Math.random() * 99999) + 1;
+      this.importadoras.push(importadora);
       console.log("Importadoras en el store:", this.importadoras);
     },
   },
   getters: {
-    getService: (state) => state.importadoras,
+    getImportadora: (state) => state.importadoras,
   },
 });

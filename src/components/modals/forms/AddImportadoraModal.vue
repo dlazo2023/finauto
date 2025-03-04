@@ -91,13 +91,12 @@ export default defineComponent({
   },
 
   setup() {
-    const serviceStore = useImportadoraStore();
+    const importadoraStore = useImportadoraStore();
     const formRef = ref<null | HTMLFormElement>(null);
     const addImportadoraModalRef = ref<null | HTMLElement>(null);
     const schema = yup.object({
       nombre: yup.string().required("El nombre es obligatorio"),
       descripcion: yup.string().required("La descripción es obligatoria"),
-      image: yup.string().required("La imagen es obligatoria"),
     });
 
     const { errors } = useForm({ validationSchema: schema });
@@ -106,16 +105,14 @@ export default defineComponent({
       values: any,
       { resetForm }: { resetForm: () => void },
     ) => {
-      console.log("ejecutando");
-
-      const newService: IImportadora = {
+      const newImportadora: IImportadora = {
         id: Math.floor(Math.random() * 99999) + 1,
         nombre: values.nombre,
         descripcion: values.descripcion,
       };
 
-      serviceStore.addService(newService);
-      console.log("importadora agregado:", newService);
+      importadoraStore.addImportadora(newImportadora);
+      console.log("importadora agregado:", newImportadora);
       hideModal(addImportadoraModalRef.value);
       resetForm();
     };
