@@ -27,49 +27,6 @@
             <!--begin::Position-->
             <div class="fs-5 fw-semibold text-muted mb-6">Software Enginer</div>
             <!--end::Position-->
-
-            <!--begin::Info-->
-            <div class="d-flex flex-wrap flex-center">
-              <!--begin::Stats-->
-              <div
-                class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3"
-              >
-                <div class="fs-4 fw-bold text-gray-700">
-                  <span class="w-75px">6,900</span>
-                  <KTIcon icon-name="arrow-up" icon-class="fs-3 text-success" />
-                </div>
-                <div class="fw-semibold text-muted">Earnings</div>
-              </div>
-              <!--end::Stats-->
-
-              <!--begin::Stats-->
-              <div
-                class="border border-gray-300 border-dashed rounded py-3 px-3 mx-4 mb-3"
-              >
-                <div class="fs-4 fw-bold text-gray-700">
-                  <span class="w-50px">130</span>
-                  <KTIcon
-                    icon-name="arrow-down"
-                    icon-class="fs-3 text-danger"
-                  />
-                </div>
-                <div class="fw-semibold text-muted">Tasks</div>
-              </div>
-              <!--end::Stats-->
-
-              <!--begin::Stats-->
-              <div
-                class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3"
-              >
-                <div class="fs-4 fw-bold text-gray-700">
-                  <span class="w-50px">500</span>
-                  <KTIcon icon-name="arrow-up" icon-class="fs-3 text-success" />
-                </div>
-                <div class="fw-semibold text-muted">Hours</div>
-              </div>
-              <!--end::Stats-->
-            </div>
-            <!--end::Info-->
           </div>
           <!--end::Summary-->
 
@@ -131,19 +88,9 @@
               <div class="text-gray-600">
                 101 Collin Street, <br />Melbourne 3000 VIC <br />Australia
               </div>
-              <!--begin::Details item-->
-              <!--begin::Details item-->
-              <div class="fw-bold mt-5">Language</div>
-              <div class="text-gray-600">English</div>
-              <!--begin::Details item-->
-              <!--begin::Details item-->
-              <div class="fw-bold mt-5">Upcoming Invoice</div>
-              <div class="text-gray-600">54238-8693</div>
-              <!--begin::Details item-->
-              <!--begin::Details item-->
-              <div class="fw-bold mt-5">Tax ID</div>
-              <div class="text-gray-600">TX-8674</div>
-              <!--begin::Details item-->
+
+              <div class="fw-bold mt-5">Número de teléfono</div>
+              <div class="text-gray-600">909 0932 90</div>
             </div>
           </div>
           <!--end::Details content-->
@@ -153,7 +100,7 @@
       <!--end::Card-->
 
       <!--begin::Connected Accounts-->
-      
+
       <!--end::Connected Accounts-->
     </div>
     <!--end::Sidebar-->
@@ -176,29 +123,6 @@
         <!--end:::Tab item-->
 
         <!--begin:::Tab item-->
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary pb-4"
-            data-bs-toggle="tab"
-            href="#kt_customer_view_overview_events_and_logs_tab"
-            >Events & Logs</a
-          >
-        </li>
-        <!--end:::Tab item-->
-
-        <!--begin:::Tab item-->
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary pb-4"
-            data-kt-countup-tabs="true"
-            data-bs-toggle="tab"
-            href="#kt_customer_view_overview_statements"
-            >Statements</a
-          >
-        </li>
-        <!--end:::Tab item-->
-
-        <!--begin:::Tab item-->
         <li class="nav-item ms-auto">
           <!--begin::Action menu-->
           <a
@@ -208,8 +132,8 @@
             data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end"
           >
-            Actions
-            <KTIcon icon-name="down" icon-class="fs-2 me-0" />
+            Dowload
+            <KTIcon icon-name="download" icon-class="fs-2 me-0" />
           </a>
           <Dropdown3></Dropdown3>
           <!--end::Menu-->
@@ -229,32 +153,6 @@
           <PaymentRecords card-classes="mb-6 mb-xl-9"></PaymentRecords>
 
           <PaymentMethods card-classes="mb-6 mb-xl-9"></PaymentMethods>
-
-          <CreditBalance card-classes="mb-6 mb-xl-9"></CreditBalance>
-
-          <Invoices card-classes="mb-6 mb-xl-9"></Invoices>
-        </div>
-        <!--end:::Tab pane-->
-
-        <!--begin:::Tab pane-->
-        <div
-          class="tab-pane fade"
-          id="kt_customer_view_overview_events_and_logs_tab"
-          role="tabpanel"
-        >
-          <Logs card-classes="mb-6 mb-xl-9"></Logs>
-          <Events card-classes="mb-6 mb-xl-9"></Events>
-        </div>
-        <!--end:::Tab pane-->
-
-        <!--begin:::Tab pane-->
-        <div
-          class="tab-pane fade"
-          id="kt_customer_view_overview_statements"
-          role="tabpanel"
-        >
-          <Earnings card-classes="mb-6 mb-xl-9"></Earnings>
-          <Statement card-classes="mb-6 mb-xl-9"></Statement>
         </div>
         <!--end:::Tab pane-->
       </div>
@@ -274,26 +172,15 @@ import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 import NewCardModal from "@/components/modals/forms/NewCardModal.vue";
 import PaymentRecords from "@/components/customers/cards/overview/PaymentRecords.vue";
 import PaymentMethods from "@/components/customers/cards/overview/PaymentMethods.vue";
-import CreditBalance from "@/components/customers/cards/overview/CreditBalance.vue";
-import Invoices from "@/components/customers/cards/overview/Invoices.vue";
-
-import Events from "@/components/customers/cards/events-and-logs/Events.vue";
-import Logs from "@/components/customers/cards/events-and-logs/Logs.vue";
 
 import Earnings from "@/components/customers/cards/statments/Earnings.vue";
-import Statement from "@/components/customers/cards/statments/Statement.vue";
 
 export default defineComponent({
   name: "customer-details",
   components: {
     PaymentRecords,
     PaymentMethods,
-    CreditBalance,
-    Invoices,
-    Events,
-    Logs,
     Earnings,
-    Statement,
     Dropdown3,
     NewCardModal,
   },

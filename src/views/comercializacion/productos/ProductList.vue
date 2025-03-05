@@ -22,7 +22,7 @@
           </div>
         </template>
         <template v-slot:descripion="{ row: data }">
-          <div :style="{ width: '300px' }">
+          <div :style="{ width: '500px' }">
             {{ data.descripion }}
           </div>
         </template>
@@ -32,24 +32,9 @@
             {{ data.módulo }}
           </div>
         </template>
-        <template v-slot:nombre="{ row: data }">
-          <div :style="{ width: '80px' }">
-            {{ data.nombre }}
-          </div>
-        </template>
-        <template v-slot:apellidos="{ row: data }">
-          <div :style="{ width: '150px' }">
-            {{ data.apellidos }}
-          </div>
-        </template>
-        <template v-slot:correo="{ row: data }">
-          <div :style="{ width: '180px' }">
-            {{ data.correo }}
-          </div>
-        </template>
-        <template v-slot:teléfono="{ row: data }">
+        <template v-slot:precio="{ row: data }">
           <div :style="{ width: '100px' }">
-            {{ data.teléfono }}
+            {{ data.precio }}
           </div>
         </template>
       </Datatable>
@@ -98,23 +83,8 @@ export default defineComponent({
         sortEnabled: true,
       },
       {
-        columnName: "Nombre",
-        columnLabel: "nombre",
-        sortEnabled: true,
-      },
-      {
-        columnName: "Apellidos",
-        columnLabel: "apellidos",
-        sortEnabled: true,
-      },
-      {
-        columnName: "Correo",
-        columnLabel: "correo",
-        sortEnabled: true,
-      },
-      {
-        columnName: "Teléfono",
-        columnLabel: "teléfono",
+        columnName: "Precio",
+        columnLabel: "precio",
         sortEnabled: true,
       },
     ]);

@@ -56,8 +56,7 @@
             data-kt-menu-trigger="click"
             data-kt-menu-placement="bottom-end"
             data-kt-menu-flip="top-end"
-            >Actions
-            <KTIcon icon-name="down" icon-class="fs-5 m-0" />
+            >Dowload
           </a>
           <!--begin::Menu-->
           <div
