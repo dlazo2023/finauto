@@ -91,29 +91,6 @@
         <!--end::Col-->
       </div>
       <!--end::Input group-->
-
-      <div
-        class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6"
-      >
-        <KTIcon
-          icon-name="information-5"
-          icon-class="fs-2tx text-warning me-4"
-        />
-        <!--begin::Wrapper-->
-        <div class="d-flex flex-stack flex-grow-1">
-          <!--begin::Content-->
-          <div class="fw-semibold">
-            <h4 class="text-gray-800 fw-bold">We need your attention!</h4>
-
-            <div class="fs-6 text-gray-600">
-              Your payment was declined. To start using tools, please
-              <a class="fw-bold" href="#">Add Payment Method</a>.
-            </div>
-          </div>
-          <!--end::Content-->
-        </div>
-        <!--end::Wrapper-->
-      </div>
     </div>
     <!--end::Card body-->
   </div>
