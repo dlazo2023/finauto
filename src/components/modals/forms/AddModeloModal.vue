@@ -48,7 +48,7 @@
 
             <!-- Campo: Descripción -->
             <div class="mb-4 px-4 py-4 col-11 mx-6">
-              <label class="required form-label">Descripción</label>
+              <label class="form-label">Descripción</label>
               <Field
                 name="description"
                 as="textarea"
