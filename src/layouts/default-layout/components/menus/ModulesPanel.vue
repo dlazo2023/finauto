@@ -8,13 +8,26 @@ export default defineComponent({
   setup() {
     const store = useAppStore();
     const modulos = ref([
-      { name: "General", path: "/dashboard" },
-      { name: "Carro", path: "/comercializacion/reservar/carro" },
-      { name: "Piezas", path: "/comercializacion/reservar/pieza" },
-      { name: "Servicio", path: "/comercializacion/reservar/servicio" },
+      { name: "General", path: "/dashboard", icon: "element-11" },
+      {
+        name: "Carro",
+        path: "/comercializacion/reservar/carro",
+        icon: "car-2 ki-outline",
+      },
+      {
+        name: "Piezas",
+        path: "/comercializacion/reservar/pieza",
+        icon: "element-11",
+      },
+      {
+        name: "Servicio",
+        path: "/comercializacion/reservar/servicio",
+        icon: "element-11",
+      },
       {
         name: "Equipamiento de garaje",
         path: "/comercializacion/reservar/equipamiento",
+        icon: "element-11",
       },
     ]);
 
@@ -50,7 +63,7 @@ export default defineComponent({
             @click="setModule(modul.name)"
           >
             <span class="menu-icon" data-kt-element="icon">
-              <KTIcon icon-name="element-11" icon-class="fs-2" />
+              <KTIcon :icon-name="modul.icon" icon-class="fs-3" />
             </span>
             <span class="menu-title fs-4 text-white">{{ modul.name }}</span>
           </router-link>
