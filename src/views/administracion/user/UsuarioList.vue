@@ -113,6 +113,11 @@
             {{ usuario.email }}
           </a>
         </template>
+        <template v-slot:phone="{ row: usuario }">
+          <a href="#" class="text-gray-600 text-hover-primary mb-1">
+            {{ usuario.phone }}
+          </a>
+        </template>
         <template v-slot:role="{ row: usuario }">
           {{ usuario.role }}
         </template>
@@ -197,6 +202,12 @@ export default defineComponent({
       {
         columnName: "Email",
         columnLabel: "email",
+        sortEnabled: true,
+        columnWidth: 230,
+      },
+      {
+        columnName: "Número de teléfono",
+        columnLabel: "phone",
         sortEnabled: true,
         columnWidth: 230,
       },

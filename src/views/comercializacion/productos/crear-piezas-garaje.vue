@@ -413,31 +413,7 @@
                               </div>
                               <!--end::Input group-->
                               <!--begin::Input group-->
-                              <div class="fv-row">
-                                <!--begin::Label-->
-                                <label class="form-label"
-                                  >Allow Backorders</label
-                                >
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <div
-                                  class="form-check form-check-custom form-check-solid mb-2"
-                                >
-                                  <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    value=""
-                                  />
-                                  <label class="form-check-label">Yes</label>
-                                </div>
-                                <!--end::Input-->
-                                <!--begin::Description-->
-                                <div class="text-muted fs-7">
-                                  Allow customers to purchase products that are
-                                  out of stock.
-                                </div>
-                                <!--end::Description-->
-                              </div>
+
                               <!--end::Input group-->
                             </div>
                             <!--end::Card header-->

@@ -541,27 +541,6 @@
                                     Introduzca la cantidad del producto.
                                   </div>
                                 </div>
-
-                                <!-- Permitir pedidos pendientes -->
-                                <div class="fv-row">
-                                  <label class="form-label"
-                                    >Permitir pedidos pendientes.</label
-                                  >
-                                  <div
-                                    class="form-check form-check-custom form-check-solid mb-2"
-                                  >
-                                    <Field
-                                      class="form-check-input"
-                                      type="checkbox"
-                                      name="allowBackorders"
-                                    />
-                                    <label class="form-check-label">Sí</label>
-                                  </div>
-                                  <div class="text-muted fs-7">
-                                    Permitir a los clientes comprar productos
-                                    que estén agotados.
-                                  </div>
-                                </div>
                               </Form>
                             </div>
 
@@ -739,7 +718,6 @@ export default defineComponent({
       warehouse: yup
         .number()
         .typeError("La cantidad en almacén debe ser un número")
-        .required("Cantidad en almacén es obligatoria")
         .min(0, "Debe ser mayor o igual a 0"),
       allowBackorders: yup.boolean(),
     });

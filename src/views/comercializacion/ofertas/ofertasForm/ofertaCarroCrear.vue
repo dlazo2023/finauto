@@ -2,22 +2,44 @@
   <div class="container mt-4">
     <h2 class="mb-4">Crear Oferta</h2>
     <form @submit="submitForm">
-      <!-- Producto (Select dinámico) -->
-      <div class="mb-3">
-        <label for="producto" class="required form-label">Producto</label>
-        <select
-          class="form-select"
-          id="producto"
-          v-model="producto"
-          :class="{ 'is-invalid': productoError }"
-        >
-          <option disabled value="">Selecciona un producto</option>
-          <option v-for="item in productos" :key="item.id" :value="item.id">
-            {{ item.name }}
-          </option>
-        </select>
-        <div v-if="productoError" class="invalid-feedback">
-          {{ productoError }}
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <!-- Producto (Select dinámico) -->
+          <div class="mb-3">
+            <label for="producto" class="required form-label">Producto</label>
+            <select
+              class="form-select"
+              id="producto"
+              v-model="producto"
+              :class="{ 'is-invalid': productoError }"
+            >
+              <option disabled value="">Selecciona un producto</option>
+              <option v-for="item in productos" :key="item.id" :value="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+            <div v-if="productoError" class="invalid-feedback">
+              {{ productoError }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <!-- Precio de oferta -->
+          <div class="mb-3">
+            <label for="precioOferta" class="required form-label"
+              >Precio de oferta</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="precioOferta"
+              v-model="precioOferta"
+              :class="{ 'is-invalid': precioOfertaError }"
+            />
+            <div v-if="precioOfertaError" class="invalid-feedback">
+              {{ precioOfertaError }}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -62,22 +84,6 @@
         <div class="col">
           <label class="form-label">Hasta</label>
           <input type="date" class="form-control" v-model="fechaVentaFin" />
-        </div>
-      </div>
-
-      <!-- Fecha de estancia a disfrutar -->
-      <div class="row mb-4">
-        <div class="col">
-          <label class="form-label">Fecha de estancia desde</label>
-          <input
-            type="date"
-            class="form-control"
-            v-model="fechaEstanciaInicio"
-          />
-        </div>
-        <div class="col">
-          <label class="form-label">Hasta</label>
-          <input type="date" class="form-control" v-model="fechaEstanciaFin" />
         </div>
       </div>
 
@@ -154,6 +160,7 @@ import * as yup from "yup";
 const validationSchema = yup.object({
   producto: yup.string().required("El producto es obligatorio"),
   nombreOferta: yup.string().required("El nombre de la oferta es obligatorio"),
+  precioOferta: yup.number().required("El precio de la oferta es obligatorio"),
   descripcion: yup.string().required("La descripción es obligatoria"),
   daysOfWeek: yup.array().min(1, "Debes seleccionar al menos un día"),
 });
@@ -167,6 +174,8 @@ const { handleSubmit } = useForm({
 const { value: producto, errorMessage: productoError } = useField("producto");
 const { value: nombreOferta, errorMessage: nombreOfertaError } =
   useField("nombreOferta");
+const { value: precioOferta, errorMessage: precioOfertaError } =
+  useField("precioOferta");
 const { value: descripcion, errorMessage: descripcionError } =
   useField("descripcion");
 const { value: daysOfWeek, errorMessage: daysOfWeekError } =
@@ -187,8 +196,6 @@ const daysOptions = [
 const idioma = ref("");
 const fechaVentaInicio = ref("");
 const fechaVentaFin = ref("");
-const fechaEstanciaInicio = ref("");
-const fechaEstanciaFin = ref("");
 
 // 6. Función para togglear "Todos los días"
 function toggleAllDays(e) {

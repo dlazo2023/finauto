@@ -204,8 +204,12 @@
             <!--begin::Menu item-->
             <div class="menu-item px-3">
               <a @click="deleteCustomer(oferta.id)" class="menu-link px-3"
-                >Delete</a
+                >Eliminar</a
               >
+            </div>
+
+            <div class="menu-item px-3">
+              <a class="menu-link px-3">Compartir</a>
             </div>
             <!--end::Menu item-->
           </div>

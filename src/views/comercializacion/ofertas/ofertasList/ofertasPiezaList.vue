@@ -149,6 +149,9 @@
                 >Delete</a
               >
             </div>
+            <div class="menu-item px-3">
+              <a class="menu-link px-3">Compartir</a>
+            </div>
             <!--end::Menu item-->
           </div>
           <!--end::Menu-->
