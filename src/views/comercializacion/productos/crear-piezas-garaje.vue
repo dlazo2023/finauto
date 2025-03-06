@@ -421,95 +421,51 @@
                           <!--end::Inventory-->
                           <!--begin::Variations-->
                           <div class="card card-flush py-4">
-                            <!--begin::Card header-->
-                            <div class="card-header">
-                              <div class="card-title">
-                                <h2>Variations</h2>
-                              </div>
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="card-body pt-0">
-                              <!--begin::Input group-->
+                            <div class="container mt-3">
+                              <h5>Variaciones</h5>
+                              <p>Agregar variaciones de productos</p>
+
                               <div
-                                class=""
-                                data-kt-ecommerce-catalog-add-product="auto-options"
+                                v-for="(variation, index) in variations"
+                                :key="index"
+                                class="d-flex align-items-center mb-2"
                               >
-                                <!--begin::Label-->
-                                <label class="form-label"
-                                  >Add Product Variations</label
+                                <!-- Selector -->
+                                <select
+                                  v-model="variation.type"
+                                  class="form-select me-2"
+                                  style="max-width: 150px"
                                 >
-                                <!--end::Label-->
-                                <!--begin::Repeater-->
-                                <div id="kt_ecommerce_add_product_options">
-                                  <!--begin::Form group-->
-                                  <div class="form-group">
-                                    <div
-                                      data-repeater-list="kt_ecommerce_add_product_options"
-                                      class="d-flex flex-column gap-3"
-                                    >
-                                      <div
-                                        data-repeater-item=""
-                                        class="form-group d-flex flex-wrap align-items-center gap-5"
-                                      >
-                                        <!--begin::Select2-->
-                                        <div class="w-100 w-md-200px">
-                                          <select
-                                            class="form-select"
-                                            name="product_option"
-                                            data-placeholder="Select a variation"
-                                            data-kt-ecommerce-catalog-add-product="product_option"
-                                          >
-                                            <option></option>
-                                            <option value="color">Color</option>
-                                            <option value="size">Size</option>
-                                            <option value="material">
-                                              Material
-                                            </option>
-                                            <option value="style">Style</option>
-                                          </select>
-                                        </div>
-                                        <!--end::Select2-->
-                                        <!--begin::Input-->
-                                        <input
-                                          type="text"
-                                          class="form-control mw-100 w-200px"
-                                          name="product_option_value"
-                                          placeholder="Variation"
-                                        />
-                                        <!--end::Input-->
-                                        <button
-                                          type="button"
-                                          data-repeater-delete=""
-                                          class="btn btn-sm btn-icon btn-light-danger"
-                                        >
-                                          <i class="ki-duotone ki-cross fs-1">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                          </i>
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!--end::Form group-->
-                                  <!--begin::Form group-->
-                                  <div class="form-group mt-5">
-                                    <button
-                                      type="button"
-                                      data-repeater-create=""
-                                      class="btn btn-sm btn-light-primary"
-                                    >
-                                      <i class="ki-duotone ki-plus fs-2"></i>Add
-                                      another variation
-                                    </button>
-                                  </div>
-                                  <!--end::Form group-->
-                                </div>
-                                <!--end::Repeater-->
+                                  <option value="" disabled>Seleccione</option>
+                                  <option value="color">Color</option>
+                                  <option value="talla">Talla</option>
+                                </select>
+
+                                <!-- Input -->
+                                <input
+                                  v-model="variation.value"
+                                  type="text"
+                                  class="form-control me-2"
+                                  placeholder="Variation"
+                                />
+
+                                <!-- Botón Eliminar -->
+                                <button
+                                  class="btn btn-danger btn-sm"
+                                  @click.prevent="removeVariation(index)"
+                                >
+                                  ✖
+                                </button>
                               </div>
-                              <!--end::Input group-->
+
+                              <!-- Botón Agregar -->
+                              <button
+                                class="btn btn-primary btn-sm"
+                                @click.prevent="addVariation()"
+                              >
+                                + Agregar otra variación
+                              </button>
                             </div>
-                            <!--end::Card header-->
                           </div>
                           <!--end::Variations-->
                         </div>
@@ -562,6 +518,59 @@
   </div>
   <!--end::Page-->
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import { Form, Field, ErrorMessage, useForm } from "vee-validate";
+import * as yup from "yup";
+
+export default defineComponent({
+  components: { Form, Field, ErrorMessage },
+  setup() {
+    const schema = yup.object({
+      nombre: yup.string().required("El nombre es obligatorio"),
+      descripcion: yup.string().required("La descripción es obligatoria"),
+      precio: yup
+        .number()
+        .required("El precio es obligatorio")
+        .positive("Debe ser un número positivo"),
+      marca: yup.string().required("La marca es obligatoria"),
+      modelo: yup.string().required("El modelo es obligatorio"),
+      capacidadTanque: yup.string().required("Este campo es obligatorio"),
+      bin: yup.string().required("El número BIN es obligatorio"),
+      shelf: yup
+        .number()
+        .typeError("La cantidad en estante debe ser un número")
+        .required("Cantidad en estante es obligatoria")
+        .min(0, "Debe ser mayor o igual a 0"),
+      warehouse: yup
+        .number()
+        .typeError("La cantidad en almacén debe ser un número")
+        .min(0, "Debe ser mayor o igual a 0"),
+      allowBackorders: yup.boolean(),
+    });
+
+    const { handleSubmit } = useForm({ validationSchema: schema });
+
+    const onSubmit = handleSubmit((values) => {
+      console.log("Producto agregado:", values);
+      alert("Producto agregado con éxito 🎉");
+    });
+
+    const variations = ref([{ type: "", value: "" }]);
+
+    const addVariation = () => {
+      variations.value.push({ type: "", value: "" });
+    };
+
+    const removeVariation = (index) => {
+      variations.value.splice(index, 1);
+    };
+
+    return { schema, onSubmit, variations, addVariation, removeVariation };
+  },
+});
+</script>
 
 <style>
 #kt_app_wrapper_garaje_piezas {
